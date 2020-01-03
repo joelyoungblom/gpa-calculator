@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="normalize.css">
+  <style>
+input, 
+output,
+select {
+  width: 4em;
+  border: 2px solid gray;
+  box-sizing: border-box;
+  padding: .5em;
+  display: inline-block;
+  height: 2.5em;
+}
+      output {
+        background: lightgray;
+      }
+      fieldset:first-of-type label {
+
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      calculateGPA();
+    });
+    document.addEventListener('input', function() {
+      calculateGPA();
+    });
+    function calculateGPA() {
+      try {
+        calculateCumulativeGPA();
+        calculateProjectedTermGPA();
+        calculateResults();
+      } catch (err) {
+        console.log( "Error: " + err );
+      }
+    }
+
+    function calculateCumulativeGPA() {
+      let qualityPoints = parseFloat( document.getElementById('quality-points').value );
+      let gpaHours = parseFloat( document.getElementById('gpa-hours').value );
+      const cumulativeGPA = document.getElementById('cumulative-gpa');
+      
+      cumulativeGPA.value = parseFloat( qualityPoints / gpaHours ).toPrecision(2);
+    }
+    function calculateProjectedTermGPA() {
+
+    }
+    function calculateResults() {
+
+    }
+  </script>
+</head>
+<body>
+  
+  <form onchange="calculateGPA();" >
+
+    <h2>1. Cumulative GPA</h2>
+
+    <p>Using your completed course work information from an official or unofficial transcript, fill in the fields here to calculate your cumulative GPA.</p>
+
+    <fieldset>
+      <legend>Fill in Quality Points &amp; GPA Hours Below:</legend>
+
+      <input id="quality-points" 
+        value="1.5" 
+        type="number" step="0.1" />
+      <label for="quality-points">Quality Points</label>
+
+      <span>/</span>
+
+      <input id="gpa-hours" 
+        value="3" 
+        type="number" />
+      <label for="gpa-hours">GPA Hours</label>
+
+      <span>=</span>
+
+      <output id="cumulative-gpa" 
+        for="" 
+        ></output>
+      <label for="cumulative-gpa">Cumulative GPA</label>
+
+    </fieldset>
+
+    <h2>2. Projected Term GPA</h2>
+
+    <p>Enter up to ten grades and credits below. Your total term credits, quality points and a projected term GPA will appear in the Results Table below.</p>
+
+    <fieldset>
+      <legend>Fill in the Quality Points Worksheet Below:</legend>
+
+      <div>
+
+      <label>Letter Grade
+        <select id="g1">
+          <option value=""></option>
+          <option value="4.3">A+</option>
+          <option value="4">A</option>
+          <option value="3.7">A-</option>
+          <option value="3.3">B+</option>
+          <option value="3">B</option>
+          <option value="2.7">B-</option>
+          <option value="2.3">C+</option>
+          <option value="2">C</option>
+          <option value="1.7">C-</option>
+          <option value="1.3">D+</option>
+          <option value="1">D</option>
+          <option value=".7">D-</option>
+          <option value="0">F</option>
+        </select>
+      </label>
+
+      <label>Number of Credits
+        <input id="c1" 
+          type="number" >
+      </label>
+
+      <label>Points Per Credit
+        <output id="p1"
+          >&nbsp;</output>
+      </label>
+
+      <label>Quality Points
+        <output id="q1" 
+          >&nbsp;</output>
+      </label>
+
+      </div>
+
+      <div>
+        <label>Projected Term GPA:
+          <output id="projected-term-gpa"
+            >&nbsp;</output>
+        </label>
+      </div>
+
+    </fieldset>
+
+    <div>
+      <input type="reset" />
+    </div>
+  </form>
+
+</body>
+</html>
