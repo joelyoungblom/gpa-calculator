@@ -52,7 +52,7 @@ legend {
 br { display: none; }
 #cumulative-fields {
   display: grid;
-  grid-template-columns: 30% auto 30% auto 30%;
+  grid-template-columns: 4fr 1fr 4fr 1fr 3fr;
 }
 #cumulative-fields > * {
   width: 100%;
@@ -74,17 +74,14 @@ br { display: none; }
   align-items: flex-end;
 }
 
-.labelled-field--inline input,
-.labelled-field--inline output {
-  float: left;
-  width: 35%;
+
+.horizontal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: .5rem;
 }
-.labelled-field--inline label {
-  clear: left;
+.horizontal-grid label {
   text-align: right;
-  float: left; 
-  width: 60%;
-  margin-right: 5%;
 }
 
 /* debug */
@@ -433,10 +430,9 @@ br { display: none; }
 
         </div><!-- /.field-grid -->
 
-        <div class="labelled-field labelled-field--inline">
+        <div class="horizontal-grid labelled-field labelled-field--inline">
           <label for="projected-term-gpa">Projected Term GPA:</label>
-          <output id="projected-term-gpa"
-            >&nbsp;</output>
+          <output id="projected-term-gpa">&nbsp;</output>
         </div>
 
       </fieldset>
@@ -448,7 +444,7 @@ br { display: none; }
       <fieldset>
         <legend>Results:</legend>
 
-        <div id="results-fields">
+        <div id="results-fields" class="horizontal-grid">
           <label for="results-term-credits">Term Credits</label>
           <output id="results-term-credits">&nbsp;</output><br>
           <label for="results-term-quality-points">Term Quality Points</label>
