@@ -8,6 +8,8 @@
 
 html {
   font: normal 100%/1.5 sans-serif;
+  color:black;
+  background-color: white;
 }
 
 input, 
@@ -83,11 +85,23 @@ br { display: none; }
 
 .horizontal-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: .5rem;
 }
 .horizontal-grid label {
   text-align: right;
+}
+
+/* utility classes */
+
+/* https://www.accessibility-developer-guide.com/examples/hiding-elements/visually/ */
+.visibly-hidden {
+  position: absolute;
+  left: -1000px; 
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 /* debug */
@@ -436,8 +450,8 @@ br { display: none; }
 
         </div><!-- /.field-grid -->
 
-        <div class="horizontal-grid labelled-field labelled-field--inline">
-          <label for="projected-term-gpa">Projected Term GPA:</label>
+        <div class="horizontal-grid labelled-field labelled-field--inline ">
+          <label for="projected-term-gpa">Projected Term GPA</label>
           <output id="projected-term-gpa">&nbsp;</output>
         </div>
 
@@ -474,13 +488,11 @@ br { display: none; }
 
   <script>
 
-document.addEventListener('DOMContentLoaded', function() {
-  calculateGPA();
-});
-document.addEventListener('input', function() {
-  calculateGPA();
-});
-function calculateGPA() {
+// event listeners
+document.addEventListener('DOMContentLoaded', function() { calculate(); });
+document.addEventListener('input', function() { calculate(); });
+
+function calculate() {
   try {
     calculateCumulativeGPA();
     calculateProjectedTermGPA();
@@ -507,23 +519,21 @@ function calculateProjectedTermGPA() {
   // loop through all projected rows
   for( i=0; i<length; i++ ) {
     if( lg[i].value ) {
-      ppc[i].value = parseFloat( lg[i].value ).toPrecision(2);
+      ppc[i].value = parseFloat( lg[i].value ).toFixed(2);
       if( nc[i].value ) {
-        qp[i].value = parseFloat( lg[i].value * nc[i].value )
+        qp[i].value = parseFloat( lg[i].value * nc[i].value ).toFixed(2);
         ncTotal += parseFloat( nc[i].value );
         qpTotal += parseFloat( qp[i].value );
       }
     }
-    console.log( ncTotal );
-    console.log( qpTotal );
   }
   const projectedTermGPA = document.getElementById('projected-term-gpa');
   const resultsProjectedTermGPA = document.getElementById('results-projected-term-gpa');
   const resultsTermCredits = document.getElementById('results-term-credits');
   const resultsTermQualityPoints = document.getElementById('results-term-quality-points');
   resultsTermCredits.value = ncTotal.toFixed(2);
-  resultsTermQualityPoints.value = qpTotal;
-  resultsProjectedTermGPA.value = projectedTermGPA.value = parseFloat( qpTotal / ncTotal )
+  resultsTermQualityPoints.value = qpTotal.toFixed(2);
+  resultsProjectedTermGPA.value = projectedTermGPA.value = parseFloat( qpTotal / ncTotal ).toFixed(2);
 }
 function calculateResults() {
   const resultsProjectedCumulativeGPA = document.getElementById('results-projected-cumulative-gpa');
@@ -533,7 +543,7 @@ function calculateResults() {
   let gpaHours = parseFloat( document.getElementById('gpa-hours').value );
   let totalCredits = gpaHours + parseFloat( resultsTermCredits.value );
   let totalPoints = qualityPoints + parseFloat( resultsTermQualityPoints.value );
-  resultsProjectedCumulativeGPA.value = totalPoints / totalCredits;
+  resultsProjectedCumulativeGPA.value = ( totalPoints / totalCredits ).toFixed(2);
 }
 
   </script>
