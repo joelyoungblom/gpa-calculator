@@ -1,385 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
-  <link rel="stylesheet" href="styles.css"/>
-  <script src="script.js"></script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Calculator | University of Oregon</title>
+    <!-- 
+      <link rel="stylesheet" href="styles.css"/> 
+    -->
+    <script src="script.js"></script>
+  </head>
+  <body>
 
-  <main>
+    <main>
 
-    <form id="gpa-calculator">
-    
-    <section id="cumulative">
-      <h2>1. Cumulative GPA</h2>
-      <p>Using your completed course work information from an official or unofficial transcript, fill in the fields here to calculate your cumulative GPA.</p>
-      <fieldset>
-        <legend>Fill in Quality Points &amp; GPA Hours Below:</legend>
+      <form id="gpa-calculator">
 
-        <div id="cumulative-fields">
+        <section id="cumulative">
+          <h2>1. Cumulative GPA</h2>
+          <p>Using your completed course work information from an official or unofficial transcript, fill in the fields here to calculate your cumulative GPA.</p>
+          <fieldset>
+            <legend>Fill in Quality Points &amp; GPA Hours Below:</legend>
 
-          <span class="labelled-field">
-            <input id="quality-points" 
-              placeholder="Quality Points"
-              value="1.5" 
-              type="number" step="0.1">
-            <label for="quality-points">Quality Points</label>
-          </span>
-          <span class="math">/</span>
-          <span class="labelled-field">
-            <input id="gpa-hours" 
-              value="3" 
-              type="number">
-            <label for="gpa-hours">GPA Hours</label>
-          </span>
-          <span class="math">=</span>
-          <span class="labelled-field">
-            <output id="cumulative-gpa" 
-              >&nbsp;</output>
-            <label for="cumulative-gpa">Cumulative GPA</label>
-          </span>
+            <div id="cumulative-fields">
 
-        </div><!-- /#cumulative-fields -->
+              <span class="labelled-field">
+                <input id="quality-points" 
+                       placeholder="Quality Points"
+                       value="1.5" 
+                       type="number" 
+                       min="0"
+                       step="0.1">
+                <label for="quality-points">Quality Points</label>
+              </span>
+              <span class="math">/</span>
+              <span class="labelled-field">
+                <input id="gpa-hours" 
+                       value="3" 
+                       min="0"
+                       type="number">
+                <label for="gpa-hours">GPA Hours</label>
+              </span>
+              <span class="math">=</span>
+              <span class="labelled-field">
+                <strong>
+                <output id="cumulative-gpa"></output>
+                <label for="cumulative-gpa">Cumulative GPA</label>
+                </strong>
+              </span>
 
-      </fieldset>
-    </section>
+            </div><!-- /#cumulative-fields -->
 
-    <section id="projected">
-      <h2>2. Projected Term GPA</h2>
-      <p>Enter up to ten grades and credits below. Your total term credits, quality points and a projected term GPA will appear in the results table.</p>
-      <fieldset>
-        <legend>Fill in the Quality Points Worksheet Below:</legend>
+          </fieldset>
+        </section>
 
-        <div class="field-grid">
+        <section id="projected">
+          <h2>2. Projected Term GPA</h2>
+          <p>Enter grades and credits below. Your total term credits, quality points and a projected term GPA will appear in the results table.</p>
+          <fieldset>
+            <legend>Fill in the Quality Points Worksheet Below:</legend>
 
-          <label for="letter-grade">Letter Grade</label>
-          <label for="number-credits">Number of Credits</label>
-          <label for="points-per-credit">Points Per Credit</label>
-          <label for="quality-points">Quality Points</label>
-          <br>
+            <input id="add-row" 
+                   value="+ Add Row" 
+                   type="button" />
 
-          <select id="l1" 
-            name="letter-grade">
-            <option value=""></option>
-            <option selected value="4.3">A+</option>
-            <option value="4">A</option>
-            <option value="3.7">A-</option>
-            <option value="3.3">B+</option>
-            <option value="3">B</option>
-            <option value="2.7">B-</option>
-            <option value="2.3">C+</option>
-            <option value="2">C</option>
-            <option value="1.7">C-</option>
-            <option value="1.3">D+</option>
-            <option value="1">D</option>
-            <option value=".7">D-</option>
-            <option value="0">F</option>
-          </select>
-          <input id="c1" 
-            value="5"
-            name="number-credits"
-            type="number">
-          <output id="p1"
-            name="points-per-credit"
-            >&nbsp;</output>
-          <output id="q1" 
-            name="quality-points"
-            >&nbsp;</output>
-          <br>
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Letter Grade</th>
+                  <th scope="col">Number of Credits</th>
+                  <th scope="col">Points Per Credit</th>
+                  <th scope="col">Quality Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template id="term-row">
+                  <tr>
+                    <td>
+                      <select id="grade-n"
+                              name="grade[]">
+                        <option value=""></option>
+                        <option value="4.3">A+</option>
+                        <option value="4">A</option>
+                        <option value="3.7">A-</option>
+                        <option value="3.3">B+</option>
+                        <option value="3">B</option>
+                        <option value="2.7">B-</option>
+                        <option value="2.3">C+</option>
+                        <option value="2">C</option>
+                        <option value="1.7">C-</option>
+                        <option value="1.3">D+</option>
+                        <option value="1">D</option>
+                        <option value=".7">D-</option>
+                        <option value="0">F</option>
+                      </select>
+                      <label for="grade-n"
+                             class="visibly-hidden"
+                             >Letter Grade</label>
+                    </td>
+                    <td>
+                      <input id="credits-n" 
+                             name="credits[]"
+                             step="1"
+                             min="0"
+                             type="number">
+                      <label for="credits-n"
+                             class="visibly-hidden"
+                             >Number of Credits</label>
+                    </td>
+                    <td>
+                      <output id="points-n" class="points" ></output>
+                      <label for="points-n"
+                             class="visibly-hidden"
+                             >Points Per Credit</label>
+                    </td>
+                    <td>
+                      <output id="quality-n" class="quality" ></output>
+                      <label for="quality-n"
+                             class="visibly-hidden"
+                             >Quality Points</label>
+                    </td>
+                  </tr>
+                </template>
+                <tr>
+                  <td>
+                    <select id="grade1" 
+                            name="grade[]">
+                      <option value=""></option>
+                      <option selected value="4.3">A+</option>
+                      <option value="4">A</option>
+                      <option value="3.7">A-</option>
+                      <option value="3.3">B+</option>
+                      <option value="3">B</option>
+                      <option value="2.7">B-</option>
+                      <option value="2.3">C+</option>
+                      <option value="2">C</option>
+                      <option value="1.7">C-</option>
+                      <option value="1.3">D+</option>
+                      <option value="1">D</option>
+                      <option value=".7">D-</option>
+                      <option value="0">F</option>
+                    </select>
+                    <label for="grade1"
+                           class="visibly-hidden"
+                           >Letter Grade</label>
+                  </td>
+                  <td>
+                    <input id="credits1" 
+                           name="credits[]"
+                           step="1"
+                           value="5"
+                           min="0"
+                           type="number">
+                    <label for="credits1"
+                           class="visibly-hidden"
+                           >Number of Credits</label>
+                  </td>
+                  <td>
+                    <output id="points1" class="points" ></output>
+                    <label for="points1"
+                           class="visibly-hidden"
+                           >Points Per Credit</label>
+                  </td>
+                  <td>
+                    <output id="quality1" class="quality" ></output>
+                    <label for="quality1"
+                           class="visibly-hidden"
+                           >Quality Points</label>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>
+                  </td>
+                  <td>
+                  </td>
+                  <th scope="row">
+                    <label for="projected-term-gpa">Projected Term GPA</label>
+                  </th>
+                  <td>
+                    <strong><output id="projected-term-gpa"></output></strong>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
 
-          <select id="l2" 
-            name="letter-grade">
-            <option value=""></option>
-            <option value="4.3">A+</option>
-            <option value="4">A</option>
-            <option value="3.7">A-</option>
-            <option value="3.3">B+</option>
-            <option value="3">B</option>
-            <option selected value="2.7">B-</option>
-            <option value="2.3">C+</option>
-            <option value="2">C</option>
-            <option value="1.7">C-</option>
-            <option value="1.3">D+</option>
-            <option value="1">D</option>
-            <option value=".7">D-</option>
-            <option value="0">F</option>
-          </select>
-          <input id="c2" 
-            value="3"
-            name="number-credits"
-            type="number">
-          <output id="p2"
-            name="points-per-credit"
-            >&nbsp;</output>
-          <output id="q2" 
-            name="quality-points"
-            >&nbsp;</output>
-          <br>
+          </fieldset>
+        </section>
 
-          <select id="l3" 
-            name="letter-grade">
-            <option value=""></option>
-            <option value="4.3">A+</option>
-            <option value="4">A</option>
-            <option value="3.7">A-</option>
-            <option value="3.3">B+</option>
-            <option value="3">B</option>
-            <option value="2.7">B-</option>
-            <option value="2.3">C+</option>
-            <option value="2">C</option>
-            <option value="1.7">C-</option>
-            <option value="1.3">D+</option>
-            <option value="1">D</option>
-            <option value=".7">D-</option>
-            <option value="0">F</option>
-          </select>
-          <input id="c3" 
-            name="number-credits"
-            type="number">
-          <output id="p3"
-            name="points-per-credit"
-            >&nbsp;</output>
-          <output id="q3" 
-            name="quality-points"
-            >&nbsp;</output>
-          <br>
+        <section id="results">
+          <h2>3. Review Results</h2>
+          <p>Your results will appear below after you have completed previous steps.</p>
+          <fieldset>
+            <legend>Results:</legend>
 
-          <select id="l4" 
-            name="letter-grade">
-            <option value=""></option>
-            <option value="4.3">A+</option>
-            <option value="4">A</option>
-            <option value="3.7">A-</option>
-            <option value="3.3">B+</option>
-            <option value="3">B</option>
-            <option value="2.7">B-</option>
-            <option value="2.3">C+</option>
-            <option value="2">C</option>
-            <option value="1.7">C-</option>
-            <option value="1.3">D+</option>
-            <option value="1">D</option>
-            <option value=".7">D-</option>
-            <option value="0">F</option>
-          </select>
-          <input id="c4" 
-            name="number-credits"
-            type="number">
-          <output id="p4"
-            name="points-per-credit"
-            >&nbsp;</output>
-          <output id="q4" 
-            name="quality-points"
-            >&nbsp;</output>
-          <br>
+            <div>
+              <output id="results-term-credits"></output>
+              <label for="results-term-credits">Term Credits</label>
+            </div>
+            <div>
+              <output id="results-term-quality-points"></output>
+              <label for="results-term-quality-points">Term Quality Points</label>
+            </div>
+            <div>
+              <output id="results-cumulative-gpa"></output>
+              <label for="results-cumulative-gpa">Cumulative GPA</label>
+            </div>
+            <div>
+              <output id="results-projected-term-gpa"></output>
+              <label for="results-projected-term-gpa">Projected Term GPA</label>
+            </div>
+            <div>
+              <output id="results-projected-cumulative-gpa"></output>
+              <label for="results-projected-cumulative-gpa">Projected Cumulative GPA</label>
+            </div>
 
-          <select id="l5" 
-            name="letter-grade">
-            <option value=""></option>
-            <option value="4.3">A+</option>
-            <option value="4">A</option>
-            <option value="3.7">A-</option>
-            <option value="3.3">B+</option>
-            <option value="3">B</option>
-            <option value="2.7">B-</option>
-            <option value="2.3">C+</option>
-            <option value="2">C</option>
-            <option value="1.7">C-</option>
-            <option value="1.3">D+</option>
-            <option value="1">D</option>
-            <option value=".7">D-</option>
-            <option value="0">F</option>
-          </select>
-          <input id="c5" 
-            name="number-credits"
-            type="number">
-          <output id="p5"
-            name="points-per-credit"
-            >&nbsp;</output>
-          <output id="q5" 
-            name="quality-points"
-            >&nbsp;</output>
-          <br>
+          </fieldset>
+        </section>
 
-          <select id="l6" 
-            name="letter-grade">
-            <option value=""></option>
-            <option value="4.3">A+</option>
-            <option value="4">A</option>
-            <option value="3.7">A-</option>
-            <option value="3.3">B+</option>
-            <option value="3">B</option>
-            <option value="2.7">B-</option>
-            <option value="2.3">C+</option>
-            <option value="2">C</option>
-            <option value="1.7">C-</option>
-            <option value="1.3">D+</option>
-            <option value="1">D</option>
-            <option value=".7">D-</option>
-            <option value="0">F</option>
-          </select>
-          <input id="c6" 
-            name="number-credits"
-            type="number">
-          <output id="p6"
-            name="points-per-credit"
-            >&nbsp;</output>
-          <output id="q6" 
-            name="quality-points"
-            >&nbsp;</output>
-          <br>
-
-          <select id="l7" 
-            name="letter-grade">
-            <option value=""></option>
-            <option value="4.3">A+</option>
-            <option value="4">A</option>
-            <option value="3.7">A-</option>
-            <option value="3.3">B+</option>
-            <option value="3">B</option>
-            <option value="2.7">B-</option>
-            <option value="2.3">C+</option>
-            <option value="2">C</option>
-            <option value="1.7">C-</option>
-            <option value="1.3">D+</option>
-            <option value="1">D</option>
-            <option value=".7">D-</option>
-            <option value="0">F</option>
-          </select>
-          <input id="c7" 
-            name="number-credits"
-            type="number">
-          <output id="p7"
-            name="points-per-credit"
-            >&nbsp;</output>
-          <output id="q7" 
-            name="quality-points"
-            >&nbsp;</output>
-          <br>
-
-          <select id="l8" 
-            name="letter-grade">
-            <option value=""></option>
-            <option value="4.3">A+</option>
-            <option value="4">A</option>
-            <option value="3.7">A-</option>
-            <option value="3.3">B+</option>
-            <option value="3">B</option>
-            <option value="2.7">B-</option>
-            <option value="2.3">C+</option>
-            <option value="2">C</option>
-            <option value="1.7">C-</option>
-            <option value="1.3">D+</option>
-            <option value="1">D</option>
-            <option value=".7">D-</option>
-            <option value="0">F</option>
-          </select>
-          <input id="c8" 
-            name="number-credits"
-            type="number">
-          <output id="p8"
-            name="points-per-credit"
-            >&nbsp;</output>
-          <output id="q8" 
-            name="quality-points"
-            >&nbsp;</output>
-          <br>
-
-          <select id="l9" 
-            name="letter-grade">
-            <option value=""></option>
-            <option value="4.3">A+</option>
-            <option value="4">A</option>
-            <option value="3.7">A-</option>
-            <option value="3.3">B+</option>
-            <option value="3">B</option>
-            <option value="2.7">B-</option>
-            <option value="2.3">C+</option>
-            <option value="2">C</option>
-            <option value="1.7">C-</option>
-            <option value="1.3">D+</option>
-            <option value="1">D</option>
-            <option value=".7">D-</option>
-            <option value="0">F</option>
-          </select>
-          <input id="c9" 
-            name="number-credits"
-            type="number">
-          <output id="p9"
-            name="points-per-credit"
-            >&nbsp;</output>
-          <output id="q9" 
-            name="quality-points"
-            >&nbsp;</output>
-          <br>
-
-          <select id="l10" 
-            name="letter-grade">
-            <option value=""></option>
-            <option value="4.3">A+</option>
-            <option value="4">A</option>
-            <option value="3.7">A-</option>
-            <option value="3.3">B+</option>
-            <option value="3">B</option>
-            <option value="2.7">B-</option>
-            <option value="2.3">C+</option>
-            <option value="2">C</option>
-            <option value="1.7">C-</option>
-            <option value="1.3">D+</option>
-            <option value="1">D</option>
-            <option value=".7">D-</option>
-            <option value="0">F</option>
-          </select>
-          <input id="c10" 
-            name="number-credits"
-            type="number">
-          <output id="p10"
-            name="points-per-credit"
-            >&nbsp;</output>
-          <output id="q10" 
-            name="quality-points"
-            >&nbsp;</output>
-          <br>
-
-        </div><!-- /.field-grid -->
-
-        <div class="horizontal-grid labelled-field labelled-field--inline ">
-          <label for="projected-term-gpa">Projected Term GPA</label>
-          <output id="projected-term-gpa">&nbsp;</output>
+        <div>
+          <label for="reset">Need to start over?</label>
+          <input id="reset" type="reset">
         </div>
 
-      </fieldset>
-    </section>
+      </form>
 
-    <section id="results">
-      <h2>3. Review Results</h2>
-      <p>Your results will appear below after you have completed previous steps.</p>
-      <fieldset>
-        <legend>Results:</legend>
+    </main>
 
-        <div id="results-fields" class="horizontal-grid">
-          <label for="results-term-credits">Term Credits</label>
-          <output id="results-term-credits">&nbsp;</output><br>
-          <label for="results-term-quality-points">Term Quality Points</label>
-          <output id="results-term-quality-points">&nbsp;</output><br>
-          <label for="results-cumulative-gpa">Cumulative GPA</label>
-          <output id="results-cumulative-gpa">&nbsp;</output><br>
-          <label for="results-projected-term-gpa">Projected Term GPA</label>
-          <output id="results-projected-term-gpa">&nbsp;</output><br>
-          <label for="results-projected-cumulative-gpa">Projected Cumulative GPA</label>
-          <output id="results-projected-cumulative-gpa">&nbsp;</output><br>
-          <label for="reset">Need to start over?</label>
-          <input name="reset" type="reset"><br>
-        </div><!-- /#results-fields -->
-
-      </fieldset>
-    </section>
-
-    </form>
-
-  </main>
-
-</body>
+  </body>
 </html>
