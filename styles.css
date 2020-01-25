@@ -1,10 +1,10 @@
 @import url("normalize.css");
 
+/* 
 html {
   font: normal 100%/1.5 sans-serif;
   color:black;
   background-color: white;
-  transition: all .3s ease;
 }
 
 input, 

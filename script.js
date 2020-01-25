@@ -9,15 +9,14 @@ function initialize() {
 
 function calculate() {
   try {
-    // calculateProjectedTermGPA();
-    // calculateResults();
-
     // cumulative gpa
     const qualityPoints = parseFloat( document.getElementById('quality-points').value );
     const gpaHours = parseFloat( document.getElementById('gpa-hours').value );
-    document.getElementById('cumulative-gpa').value = 
-      document.getElementById('results-cumulative-gpa').value = 
-      ( qualityPoints / gpaHours ).toFixed(2);
+    if( qualityPoints && gpaHours ) {
+      document.getElementById('cumulative-gpa').value = 
+        document.getElementById('results-cumulative-gpa').value = 
+        ( qualityPoints / gpaHours ).toFixed(2);
+    }
 
     // projected gpa
     const grades = document.getElementsByName('grade[]');
@@ -39,29 +38,29 @@ function calculate() {
         }
       }
     }
-    document.getElementById('results-term-credits').value = parseFloat( creditTotal ).toFixed(2);
-    document.getElementById('results-term-quality-points').value = parseFloat( qualityTotal ).toFixed(2);
-    document.getElementById('projected-term-gpa').value = 
-      document.getElementById('results-projected-term-gpa').value = 
-      parseFloat( qualityTotal / creditTotal ).toFixed(2);
 
-    const totalCredits = gpaHours + creditTotal; 
+    // term credits, term quality points, projected term gpa
+    if( creditTotal ) { 
+      document.getElementById('term-credits').value = parseFloat( creditTotal ).toFixed(2);
+      if( qualityTotal) {
+        document.getElementById('term-quality-points').value = parseFloat( qualityTotal ).toFixed(2);
+
+        // projected term gpa
+        document.getElementById('projected-term-gpa').value = 
+          document.getElementById('results-projected-term-gpa').value = 
+          parseFloat( qualityTotal / creditTotal ).toFixed(2);
+      }
+    }
+
+    // projected cumulative gpa
     const totalPoints = qualityPoints + qualityTotal;
-    document.getElementById('results-projected-cumulative-gpa').value = ( totalPoints / totalCredits ).toFixed(2);
+    const totalCredits = gpaHours + creditTotal; 
+    if( totalPoints && totalCredits ) {
+      document.getElementById('projected-cumulative-gpa').value = ( totalPoints / totalCredits ).toFixed(2);
+    }
   } catch (err) {
     console.log( "Error: " + err );
   }
-}
-
-function calculateResults() {
-  const resultsProjectedCumulativeGPA = document.getElementById('results-projected-cumulative-gpa');
-  const resultsTermCredits = document.getElementById('results-term-credits');
-  const resultsTermQualityPoints = document.getElementById('results-term-quality-points');
-  let qualityPoints = parseFloat( document.getElementById('quality-points').value );
-  let gpaHours = parseFloat( document.getElementById('gpa-hours').value );
-  let totalCredits = gpaHours + parseFloat( resultsTermCredits.value );
-  let totalPoints = qualityPoints + parseFloat( resultsTermQualityPoints.value );
-  resultsProjectedCumulativeGPA.value = ( totalPoints / totalCredits ).toFixed(2);
 }
 
 /**

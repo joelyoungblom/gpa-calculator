@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPA Calculator | University of Oregon</title>
-    <!-- 
-      <link rel="stylesheet" href="styles.css"/> 
-    -->
+    <link rel="stylesheet" href="styles.css"/> 
     <script src="script.js"></script>
   </head>
   <body>
@@ -16,46 +14,44 @@
       <form id="gpa-calculator">
 
         <section id="cumulative">
-          <h2>1. Cumulative GPA</h2>
-          <p>Using your completed course work information from an official or unofficial transcript, fill in the fields here to calculate your cumulative GPA.</p>
+          <h2>1. Cumulative <abbr title="grade point average">GPA</abbr></h2>
+          <p>Using your completed course work information from an official or unofficial transcript, fill in the fields here to calculate your cumulative <abbr title="grade point average">GPA</abbr>.</p>
           <fieldset>
-            <legend>Fill in Quality Points &amp; GPA Hours Below:</legend>
+            <legend>Fill in Quality Points &amp; <abbr title="grade point average">GPA</abbr> Hours Below:</legend>
 
-            <div id="cumulative-fields">
-
-              <span class="labelled-field">
-                <input id="quality-points" 
-                       placeholder="Quality Points"
-                       value="1.5" 
-                       type="number" 
-                       min="0"
-                       step="0.1">
-                <label for="quality-points">Quality Points</label>
-              </span>
-              <span class="math">/</span>
-              <span class="labelled-field">
-                <input id="gpa-hours" 
-                       value="3" 
-                       min="0"
-                       type="number">
-                <label for="gpa-hours">GPA Hours</label>
-              </span>
-              <span class="math">=</span>
-              <span class="labelled-field">
-                <strong>
+            <span>
+              <input id="quality-points" 
+                     type="number" 
+                     min="0.1"
+                     step="0.1" >
+                     <label for="quality-points">Quality Points</label>
+            </span>
+            <span>
+              /
+            </span>
+            <span>
+              <input id="gpa-hours" 
+                     type="number"
+                     min="0.1"
+                     step="0.1" >
+                     <label for="gpa-hours"><abbr title="grade point average">GPA</abbr> Hours</label>
+            </span>
+            <span>
+              =
+            </span>
+            <span>
+              <strong>
                 <output id="cumulative-gpa"></output>
-                <label for="cumulative-gpa">Cumulative GPA</label>
-                </strong>
-              </span>
-
-            </div><!-- /#cumulative-fields -->
+                <label for="cumulative-gpa">Cumulative <abbr title="grade point average">GPA</abbr></label>
+              </strong>
+            </span>
 
           </fieldset>
         </section>
 
         <section id="projected">
-          <h2>2. Projected Term GPA</h2>
-          <p>Enter grades and credits below. Your total term credits, quality points and a projected term GPA will appear in the results table.</p>
+          <h2>2. Projected Term <abbr title="grade point average">GPA</abbr></h2>
+          <p>Enter grades and credits below. Your total term credits, quality points and a projected term <abbr title="grade point average">GPA</abbr> will appear in the results table.</p>
           <fieldset>
             <legend>Fill in the Quality Points Worksheet Below:</legend>
 
@@ -78,7 +74,7 @@
                     <td>
                       <select id="grade-n"
                               name="grade[]">
-                        <option value=""></option>
+                        <option value="">Choose...</option>
                         <option value="4.3">A+</option>
                         <option value="4">A</option>
                         <option value="3.7">A-</option>
@@ -125,8 +121,8 @@
                   <td>
                     <select id="grade1" 
                             name="grade[]">
-                      <option value=""></option>
-                      <option selected value="4.3">A+</option>
+                      <option value="">Choose...</option>
+                      <option value="4.3">A+</option>
                       <option value="4">A</option>
                       <option value="3.7">A-</option>
                       <option value="3.3">B+</option>
@@ -148,7 +144,6 @@
                     <input id="credits1" 
                            name="credits[]"
                            step="1"
-                           value="5"
                            min="0"
                            type="number">
                     <label for="credits1"
@@ -171,15 +166,11 @@
               </tbody>
               <tfoot>
                 <tr>
-                  <td>
-                  </td>
-                  <td>
-                  </td>
-                  <th scope="row">
-                    <label for="projected-term-gpa">Projected Term GPA</label>
-                  </th>
-                  <td>
-                    <strong><output id="projected-term-gpa"></output></strong>
+                  <td colspan="4">
+                    <strong>
+                      <label for="projected-term-gpa">Projected Term <abbr title="grade point average">GPA</abbr></label>
+                      <output id="projected-term-gpa"></output>
+                    </strong>
                   </td>
                 </tr>
               </tfoot>
@@ -195,24 +186,26 @@
             <legend>Results:</legend>
 
             <div>
-              <output id="results-term-credits"></output>
-              <label for="results-term-credits">Term Credits</label>
+              <output id="term-credits"></output>
+              <label for="term-credits">Term Credits</label>
             </div>
             <div>
-              <output id="results-term-quality-points"></output>
-              <label for="results-term-quality-points">Term Quality Points</label>
+              <output id="term-quality-points"></output>
+              <label for="term-quality-points">Term Quality Points</label>
             </div>
             <div>
               <output id="results-cumulative-gpa"></output>
-              <label for="results-cumulative-gpa">Cumulative GPA</label>
+              <label for="results-cumulative-gpa">Cumulative <abbr title="grade point average">GPA</abbr></label>
             </div>
             <div>
               <output id="results-projected-term-gpa"></output>
-              <label for="results-projected-term-gpa">Projected Term GPA</label>
+              <label for="results-projected-term-gpa">Projected Term <abbr title="grade point average">GPA</abbr></label>
             </div>
             <div>
-              <output id="results-projected-cumulative-gpa"></output>
-              <label for="results-projected-cumulative-gpa">Projected Cumulative GPA</label>
+              <strong>
+                <output id="projected-cumulative-gpa"></output>
+                <label for="projected-cumulative-gpa">Projected Cumulative <abbr title="grade point average">GPA</abbr></label>
+              </strong>
             </div>
 
           </fieldset>
