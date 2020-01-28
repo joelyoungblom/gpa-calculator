@@ -373,6 +373,10 @@ form th {
   overflow: hidden;
 }
 
+#add-row {
+  float: right;
+}
+
 /* layout */
 #cumulative { grid-area: cumulative; }
 #projected { grid-area: projected; }
@@ -457,10 +461,6 @@ html {
           <p>Enter grades and credits below. Your total term credits, quality points and a projected term <abbr title="grade point average">GPA</abbr> will appear in the <a href="#results">results table</a>.</p>
           <fieldset>
             <legend>Fill in the Quality Points Worksheet Below:</legend>
-
-            <input id="add-row" 
-                   value="+ Add Row" 
-                   type="button" />
 
             <table>
               <thead>
@@ -568,6 +568,10 @@ html {
                 </tr>
               </tbody>
             </table>
+
+            <input id="add-row" 
+                   value="+ Add Row" 
+                   type="button" />
 
             <div>
               <strong>
