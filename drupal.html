@@ -297,14 +297,13 @@ form th {
   margin-bottom: var(--spacing);
 }
 
-/* input, output, select */
+/* input, select */
 #gpa-calculator input[type="number"],
 #gpa-calculator input[type="reset"],
-#gpa-calculator select,
-#gpa-calculator output {
+#gpa-calculator input[disabled],
+#gpa-calculator select {
   font-size: 1rem;
   line-height: 1.5;
-  font-weight: inherit;
 
   height: var(--spacing);
   min-width: 5rem;
@@ -315,14 +314,32 @@ form th {
   padding: 0 var(--spacing-sm);
   border: 1px solid var(--color-border);
 }
-#gpa-calculator output {
+#results input {
+  width: 30%;
+}
+#gpa-calculator strong {
+  font-weight: normal;
+}
+#projected strong input[disabled] {
+  width: 30%;
+  text-align: right;
+}
+#projected strong label {
+  white-space: nowrap;
+  margin-right: var(--spacing-sm);
+}
+#gpa-calculator strong input,
+#gpa-calculator strong label {
+  font-weight: bold;
+}
+#gpa-calculator input[disabled] {
   background-color: var(--color-inactive);
 }
 #gpa-calculator #results div {
   margin-bottom: var(--spacing-sm);
   width: 100%;
 }
-#gpa-calculator #results output {
+#gpa-calculator #results input[disabled] {
   padding: 0 var(--spacing-sm);
   text-align: right;
 }
@@ -341,8 +358,7 @@ form th {
   width: 25%;
 }
 #gpa-calculator td input,
-#gpa-calculator td select,
-#gpa-calculator td output {
+#gpa-calculator td select {
   width: 100%;
 }
 
@@ -358,8 +374,7 @@ form th {
   width: 1rem;
   text-align: center;
 }
-#gpa-calculator .over-under input,
-#gpa-calculator .over-under output {
+#gpa-calculator .over-under input {
   width: 100%;
 }
 
@@ -447,7 +462,7 @@ html {
             </span>
             <span class="over-under">
               <strong>
-                <output id="cumulative-gpa">&nbsp;</output>
+                <input disabled id="cumulative-gpa" />
                 <label for="cumulative-gpa">Cumulative <abbr title="grade point average">GPA</abbr></label>
               </strong>
             </span>
@@ -507,13 +522,13 @@ html {
                              >Number of Credits</label>
                     </td>
                     <td>
-                      <output id="points-n" class="points" >&nbsp;</output>
+                      <input disabled id="points-n" class="points" />
                       <label for="points-n"
                              class="visibly-hidden"
                              >Points Per Credit</label>
                     </td>
                     <td>
-                      <output id="quality-n" class="quality" >&nbsp;</output>
+                      <input disabled id="quality-n" class="quality" />
                       <label for="quality-n"
                              class="visibly-hidden"
                              >Quality Points</label>
@@ -554,13 +569,13 @@ html {
                            >Number of Credits</label>
                   </td>
                   <td>
-                    <output id="points1" class="points" >&nbsp;</output>
+                    <input disabled id="points1" class="points" />
                     <label for="points1"
                            class="visibly-hidden"
                            >Points Per Credit</label>
                   </td>
                   <td>
-                    <output id="quality1" class="quality" >&nbsp;</output>
+                    <input disabled id="quality1" class="quality" />
                     <label for="quality1"
                            class="visibly-hidden"
                            >Quality Points</label>
@@ -575,7 +590,7 @@ html {
 
             <div>
               <strong>
-                <output id="projected-term-gpa">&nbsp;</output>
+                <input disabled id="projected-term-gpa" />
                 <label for="projected-term-gpa">Projected Term <abbr title="grade point average">GPA</abbr></label>
               </strong>
             </div> 
@@ -590,24 +605,24 @@ html {
             <legend>Results:</legend>
 
             <div>
-              <output id="term-credits">&nbsp;</output>
+              <input disabled id="term-credits" />
               <label for="term-credits">Term Credits</label>
             </div>
             <div>
-              <output id="term-quality-points">&nbsp;</output>
+              <input disabled id="term-quality-points" />
               <label for="term-quality-points">Term Quality Points</label>
             </div>
             <div>
-              <output id="results-cumulative-gpa">&nbsp;</output>
+              <input disabled id="results-cumulative-gpa" />
               <label for="results-cumulative-gpa">Cumulative <abbr title="grade point average">GPA</abbr></label>
             </div>
             <div>
-              <output id="results-projected-term-gpa">&nbsp;</output>
+              <input disabled id="results-projected-term-gpa" />
               <label for="results-projected-term-gpa">Projected Term <abbr title="grade point average">GPA</abbr></label>
             </div>
             <div>
               <strong>
-                <output id="projected-cumulative-gpa">&nbsp;</output>
+                <input disabled id="projected-cumulative-gpa" />
                 <label for="projected-cumulative-gpa">Projected Cumulative <abbr title="grade point average">GPA</abbr></label>
               </strong>
             </div>
