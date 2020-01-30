@@ -346,6 +346,10 @@ form th {
 #gpa-calculator #results label {
   width: 50%;
 }
+#projected strong input[disabled],
+#results input[disabled] {
+    margin-right: var(--spacing-sm);
+}
 
 /* table styles */
 #gpa-calculator table {
@@ -632,7 +636,7 @@ html {
 
         <div>
           <label for="reset">Need to start over?</label>
-          <input id="reset" type="reset">
+          <input id="reset" type="reset" value="Reset">
         </div>
 
       </form>
