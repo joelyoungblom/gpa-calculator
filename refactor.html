@@ -219,146 +219,128 @@ var trackOutboundLink = function(url) {
 
 <style>
 
-/* https://communications.uoregon.edu/web-colors */
-:root {
-  /* primary colors */
-  --uo-green: #036936;
-  --uo-yellow: #fee11a;
-
-  /* secondary color palette: greens and yellows */
-  --uo-legacy-green: #104735;
-  --dark-green: #235e39;
-  --pine-green: #20883f;
-  --grass-green: #489d46;
-  --lime-green: #8abb40;
-  --apple-green: #b5cf34;
-  --chartreuse: #e2e11b;
-  --golden-yellow: #fed103;
-  --process-yellow: #fff200;
-
-  /* grays */
-  --dark-gray: #4f565a;
-  --medium-gray: #9a9c9f;
-  --20pct-gray: #d1d3d4;
-  --5pct-gray: #f1f2f2;
-
-  /* accent colors */
-  --brown: #554e4a;
-  --olive: #81793b;
-  --red: #af272f;
-  --magenta: #db1593;
-  --spicy-mustard: #d7aa27;
-  --sunshine-yellow: #fcb116;
-  --turquoise: #0f8480;
-  --dark-turquoise: #1c676c;
-  --process-cyan: #00aeef;
-  --dark-blue: #07506f;
-  --medium-blue: #157cae;
-  --light-blue: #84d2df;
-}
-
-/* variables */
-:root {
-  --color-inactive: var(--20pct-gray);
-  --color-bg-light: var(--5pct-gray);
-  --color-border: var(--medium-gray);
-  --spacing: 1.5rem;
-  --spacing-sm: .5rem;
-}
-
 /* override native styles */
 label {
-  display: initial;
+  display: inline;
   font-weight: inherit;
 }
 form th {
   font-weight: initial;
-  border-bottom: initial;
+  border-bottom: none;
   padding-right: initial;
   vertical-align: bottom;
 }
 
-/* form styles */
+/* responsive */
+#cumulative { grid-area: cumulative; }
+#projected { grid-area: projected; }
+#results { grid-area: results; }
+html {
+  min-width: 360px;
+}
+@media only screen and (max-width: 440px) {
+  /* hide points per credit column on small widths */
+  #gpa-calculator th:nth-of-type(3),
+  #gpa-calculator td:nth-of-type(3) {
+    display: none;
+  }
+}
+@media only screen and (min-width: 900px) {
+  #gpa-calculator {
+    display: grid;
+    grid-gap: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+      "cumulative results"
+      "projected  results";
+  }
+  #gpa-calculator .section {
+    margin-bottom: 0;
+  }
+}
+
+/* section spacing */
+#gpa-calculator .section {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: #f1f2f2;
+  border: 1px solid #9a9c9f;
+}
 #gpa-calculator h2 {
   margin-top: 0;
 }
-#gpa-calculator fieldset {
+#gpa-calculator fieldset,
+#gpa-calculator legend {
   padding: 0;
-  border: none;
   margin: 0;
+  border: none;
 }
 #gpa-calculator legend {
-  margin: 0 0 var(--spacing) 0;
-  padding: 0;
-}
-#gpa-calculator .section,
-#gpa-calculator section {
-  padding: var(--spacing);
-  background-color: var(--color-bg-light);
-  border: 1px solid var(--color-border);
-  margin-bottom: var(--spacing);
+  margin-bottom: 1.5rem;
 }
 
 /* input, select */
 #gpa-calculator input[type="number"],
 #gpa-calculator input[type="reset"],
-#gpa-calculator input[disabled],
 #gpa-calculator select {
   font-size: 1rem;
   line-height: 1.5;
 
-  height: var(--spacing);
-  min-width: 5rem;
+  height: 1.5rem;
   display: inline-block;
   box-sizing: border-box; 
   
+  padding: 0 .5rem;
   margin: 0;
-  padding: 0 var(--spacing-sm);
-  border: 1px solid var(--color-border);
+  border: 1px solid #9a9c9f;
 }
-#results input {
-  width: 30%;
-}
+
 #gpa-calculator strong {
   font-weight: normal;
-}
-#projected strong input[disabled] {
-  width: 30%;
-  text-align: right;
-}
-#projected strong label {
-  white-space: nowrap;
-  margin-right: var(--spacing-sm);
 }
 #gpa-calculator strong input,
 #gpa-calculator strong label {
   font-weight: bold;
 }
 #gpa-calculator input[disabled] {
-  background-color: var(--color-inactive);
+  background-color: #d1d3d4;
 }
-#gpa-calculator #results div {
-  margin-bottom: var(--spacing-sm);
-  width: 100%;
+#projected strong label {
+  white-space: nowrap;
+  margin-right: .5rem;
 }
-#gpa-calculator #results input[disabled] {
-  padding: 0 var(--spacing-sm);
+#projected strong input,
+#results input {
   text-align: right;
-}
-#gpa-calculator #results label {
-  width: 50%;
+  width: 20%;
 }
 #projected strong input[disabled],
 #results input[disabled] {
-    margin-right: var(--spacing-sm);
+    margin-right: .5rem;
+}
+
+#gpa-calculator #results div {
+  margin-bottom: .5rem;
+  width: 100%;
+}
+#gpa-calculator #results div:last-child {
+  margin-bottom: 0;
+}
+#gpa-calculator #results input[disabled] {
+  padding: 0 .5rem;
+  text-align: right;
+}
+#gpa-calculator #results label {
+  white-space: nowrap;
+  width: 60%;
 }
 
 /* table styles */
 #gpa-calculator table {
-  margin: 0 0 var(--spacing) 0;
+  margin: 0 0 1.5rem 0;
   width: 100%;
   border-collapse: separate;
-  border-spacing: var(--spacing-sm);
+  border-spacing: .5rem;
 }
 #gpa-calculator td {
   width: 25%;
@@ -369,7 +351,7 @@ form th {
 }
 
 /* over under */
-#gpa-calculator .flex {
+#gpa-calculator .flex-container {
   display: flex;
   flex-wrap: nowrap;
 }
@@ -385,7 +367,7 @@ form th {
 }
 
 /* utility classes */
-.visibly-hidden {
+.hidden {
   position: absolute;
   left: -1000px;
   top: auto;
@@ -394,662 +376,501 @@ form th {
   overflow: hidden;
 }
 
-#add-row {
-  float: right;
-}
-
-/* layout */
-#cumulative { grid-area: cumulative; }
-#projected { grid-area: projected; }
-#results { grid-area: results; }
-html {
-  min-width: 360px;
-}
-@media only screen and (max-width: 440px) {
-  #gpa-calculator th:nth-of-type(3),
-  #gpa-calculator td:nth-of-type(3) {
-    display: none;
-  }
-}
-@media only screen and (min-width: 900px) {
-  #gpa-calculator {
-    display: grid;
-    grid-gap: var(--spacing);
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: 
-      "cumulative results"
-      "projected  results";
-  }
-  #gpa-calculator section {
-    margin-bottom: 0;
-  }
-}
-
-/* debug */
-/*
-* { outline: 1px solid gray; }
-*:hover { 
-  box-shadow: 0 0 5px gray;
-  outline: 1px solid blue; }
-*/
-
 </style>
 
 
-      <noscript>Please enable Javascript or switch browsers to use the GPA calculator.</noscript>
+<noscript>
+  <p><em>Please enable Javascript or switch browsers to use the GPA calculator.</em></p>
+</noscript>
 
-      <form id="gpa-calculator" class="css-reset" >
+<form id="gpa-calculator">
 
-        <section id="cumulative">
-          <h2>1. Cumulative <abbr title="grade point average">GPA</abbr></h2>
-          <p>Using your completed course work information from an official or unofficial transcript, fill in the fields here to calculate your cumulative <abbr title="grade point average">GPA</abbr>.</p>
-          <fieldset>
-            <legend>Fill in Quality Points &amp; <abbr title="grade point average">GPA</abbr> Hours Below:</legend>
+  <div id="cumulative" class="section">
+    <h2>1. Cumulative <abbr title="grade point average">GPA</abbr></h2>
+    <p>Using your completed course work information from an official or 
+      unofficial transcript, fill in the fields here to calculate your 
+      cumulative <abbr title="grade point average">GPA</abbr>.</p>
+    <fieldset>
+      <legend>Fill in quality points &amp; 
+        <abbr title="grade point average">GPA</abbr> hours Below:</legend>
 
-            <div class="flex">
-            <span class="over-under">
-              <input id="quality-points" 
-                     type="number" 
-                     min="0.1"
-                     step="0.1" >
-                     <label for="quality-points">Quality Points</label>
-            </span>
-            <span class="maths">
-              /
-            </span>
-            <span class="over-under">
-              <input id="gpa-hours" 
-                     type="number"
-                     min="0.1"
-                     step="0.1" >
-                     <label for="gpa-hours"><abbr title="grade point average">GPA</abbr> Hours</label>
-            </span>
-            <span class="maths">
-              =
-            </span>
-            <span class="over-under">
-              <strong>
-                <input disabled id="cumulative-gpa" />
-                <label for="cumulative-gpa">Cumulative <abbr title="grade point average">GPA</abbr></label>
-              </strong>
-            </span>
-            </div>
+      <div class="flex-container">
+      <span class="over-under">
+        <input id="quality-points" type="number" min="0.1" step="0.1">
+        <label for="quality-points">Quality Points</label>
+      </span>
+      <span class="maths">/</span>
+      <span class="over-under">
+        <input id="gpa-hours" type="number" min="0.1" step="0.1">
+        <label for="gpa-hours">
+          <abbr title="grade point average">GPA</abbr> Hours</label>
+      </span>
+      <span class="maths">=</span>
+      <span class="over-under">
+        <strong>
+          <input id="cumulative-gpa" type="number" disabled>
+          <label for="cumulative-gpa">Cumulative 
+            <abbr title="grade point average">GPA</abbr></label>
+        </strong>
+      </span>
+      </div>
 
-          </fieldset>
-        </section>
+    </fieldset>
+  </div><!-- /#cumulative.section -->
 
-        <section id="projected">
-          <h2>2. Projected Term <abbr title="grade point average">GPA</abbr></h2>
-          <p>Enter grades and credits below. Your total term credits, quality points and a projected term <abbr title="grade point average">GPA</abbr> will appear in the <a href="#results">results table</a>.</p>
-          <fieldset>
-            <legend>Fill in the Quality Points Worksheet Below:</legend>
+  <div id="projected" class="section">
+    <h2>2. Projected Term <abbr title="grade point average">GPA</abbr></h2>
+    <p>Enter grades and credits below. Your total term credits, quality points 
+      and a projected term <abbr title="grade point average">GPA</abbr> will 
+      appear in the <a href="#results">results table</a>.</p>
+    <fieldset>
+      <legend>Fill in the quality points worksheet below:</legend>
 
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Letter Grade</th>
-                  <th scope="col">Number of Credits</th>
-                  <th scope="col">Points Per Credit</th>
-                  <th scope="col">Quality Points</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <select id="grade1" 
-                            name="grade[]">
-                      <option value="">Choose...</option>
-                      <option value="4.3">A+</option>
-                      <option value="4">A</option>
-                      <option value="3.7">A-</option>
-                      <option value="3.3">B+</option>
-                      <option value="3">B</option>
-                      <option value="2.7">B-</option>
-                      <option value="2.3">C+</option>
-                      <option value="2">C</option>
-                      <option value="1.7">C-</option>
-                      <option value="1.3">D+</option>
-                      <option value="1">D</option>
-                      <option value=".7">D-</option>
-                      <option value="0">F</option>
-                    </select>
-                    <label for="grade1"
-                           class="visibly-hidden"
-                           >Letter Grade</label>
-                  </td>
-                  <td>
-                    <input id="credits1" 
-                           name="credits[]"
-                           step="1"
-                           min="0"
-                           type="number">
-                    <label for="credits1"
-                           class="visibly-hidden"
-                           >Number of Credits</label>
-                  </td>
-                  <td>
-                    <input disabled id="points1" class="points" />
-                    <label for="points1"
-                           class="visibly-hidden"
-                           >Points Per Credit</label>
-                  </td>
-                  <td>
-                    <input disabled id="quality1" class="quality" />
-                    <label for="quality1"
-                           class="visibly-hidden"
-                           >Quality Points</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <select id="grade2" 
-                            name="grade[]">
-                      <option value="">Choose...</option>
-                      <option value="4.3">A+</option>
-                      <option value="4">A</option>
-                      <option value="3.7">A-</option>
-                      <option value="3.3">B+</option>
-                      <option value="3">B</option>
-                      <option value="2.7">B-</option>
-                      <option value="2.3">C+</option>
-                      <option value="2">C</option>
-                      <option value="1.7">C-</option>
-                      <option value="1.3">D+</option>
-                      <option value="1">D</option>
-                      <option value=".7">D-</option>
-                      <option value="0">F</option>
-                    </select>
-                    <label for="grade2"
-                           class="visibly-hidden"
-                           >Letter Grade</label>
-                  </td>
-                  <td>
-                    <input id="credits2" 
-                           name="credits[]"
-                           step="1"
-                           min="0"
-                           type="number">
-                    <label for="credits2"
-                           class="visibly-hidden"
-                           >Number of Credits</label>
-                  </td>
-                  <td>
-                    <input disabled id="points2" class="points" />
-                    <label for="points2"
-                           class="visibly-hidden"
-                           >Points Per Credit</label>
-                  </td>
-                  <td>
-                    <input disabled id="quality2" class="quality" />
-                    <label for="quality2"
-                           class="visibly-hidden"
-                           >Quality Points</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <select id="grade3" 
-                            name="grade[]">
-                      <option value="">Choose...</option>
-                      <option value="4.3">A+</option>
-                      <option value="4">A</option>
-                      <option value="3.7">A-</option>
-                      <option value="3.3">B+</option>
-                      <option value="3">B</option>
-                      <option value="2.7">B-</option>
-                      <option value="2.3">C+</option>
-                      <option value="2">C</option>
-                      <option value="1.7">C-</option>
-                      <option value="1.3">D+</option>
-                      <option value="1">D</option>
-                      <option value=".7">D-</option>
-                      <option value="0">F</option>
-                    </select>
-                    <label for="grade3"
-                           class="visibly-hidden"
-                           >Letter Grade</label>
-                  </td>
-                  <td>
-                    <input id="credits3" 
-                           name="credits[]"
-                           step="1"
-                           min="0"
-                           type="number">
-                    <label for="credits3"
-                           class="visibly-hidden"
-                           >Number of Credits</label>
-                  </td>
-                  <td>
-                    <input disabled id="points3" class="points" />
-                    <label for="points3"
-                           class="visibly-hidden"
-                           >Points Per Credit</label>
-                  </td>
-                  <td>
-                    <input disabled id="quality3" class="quality" />
-                    <label for="quality3"
-                           class="visibly-hidden"
-                           >Quality Points</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <select id="grade4" 
-                            name="grade[]">
-                      <option value="">Choose...</option>
-                      <option value="4.3">A+</option>
-                      <option value="4">A</option>
-                      <option value="3.7">A-</option>
-                      <option value="3.3">B+</option>
-                      <option value="3">B</option>
-                      <option value="2.7">B-</option>
-                      <option value="2.3">C+</option>
-                      <option value="2">C</option>
-                      <option value="1.7">C-</option>
-                      <option value="1.3">D+</option>
-                      <option value="1">D</option>
-                      <option value=".7">D-</option>
-                      <option value="0">F</option>
-                    </select>
-                    <label for="grade4"
-                           class="visibly-hidden"
-                           >Letter Grade</label>
-                  </td>
-                  <td>
-                    <input id="credits4" 
-                           name="credits[]"
-                           step="1"
-                           min="0"
-                           type="number">
-                    <label for="credits4"
-                           class="visibly-hidden"
-                           >Number of Credits</label>
-                  </td>
-                  <td>
-                    <input disabled id="points4" class="points" />
-                    <label for="points4"
-                           class="visibly-hidden"
-                           >Points Per Credit</label>
-                  </td>
-                  <td>
-                    <input disabled id="quality4" class="quality" />
-                    <label for="quality4"
-                           class="visibly-hidden"
-                           >Quality Points</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <select id="grade5" 
-                            name="grade[]">
-                      <option value="">Choose...</option>
-                      <option value="4.3">A+</option>
-                      <option value="4">A</option>
-                      <option value="3.7">A-</option>
-                      <option value="3.3">B+</option>
-                      <option value="3">B</option>
-                      <option value="2.7">B-</option>
-                      <option value="2.3">C+</option>
-                      <option value="2">C</option>
-                      <option value="1.7">C-</option>
-                      <option value="1.3">D+</option>
-                      <option value="1">D</option>
-                      <option value=".7">D-</option>
-                      <option value="0">F</option>
-                    </select>
-                    <label for="grade5"
-                           class="visibly-hidden"
-                           >Letter Grade</label>
-                  </td>
-                  <td>
-                    <input id="credits5" 
-                           name="credits[]"
-                           step="1"
-                           min="0"
-                           type="number">
-                    <label for="credits5"
-                           class="visibly-hidden"
-                           >Number of Credits</label>
-                  </td>
-                  <td>
-                    <input disabled id="points5" class="points" />
-                    <label for="points5"
-                           class="visibly-hidden"
-                           >Points Per Credit</label>
-                  </td>
-                  <td>
-                    <input disabled id="quality5" class="quality" />
-                    <label for="quality5"
-                           class="visibly-hidden"
-                           >Quality Points</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <select id="grade6" 
-                            name="grade[]">
-                      <option value="">Choose...</option>
-                      <option value="4.3">A+</option>
-                      <option value="4">A</option>
-                      <option value="3.7">A-</option>
-                      <option value="3.3">B+</option>
-                      <option value="3">B</option>
-                      <option value="2.7">B-</option>
-                      <option value="2.3">C+</option>
-                      <option value="2">C</option>
-                      <option value="1.7">C-</option>
-                      <option value="1.3">D+</option>
-                      <option value="1">D</option>
-                      <option value=".7">D-</option>
-                      <option value="0">F</option>
-                    </select>
-                    <label for="grade1"
-                           class="visibly-hidden"
-                           >Letter Grade</label>
-                  </td>
-                  <td>
-                    <input id="credits6" 
-                           name="credits[]"
-                           step="1"
-                           min="0"
-                           type="number">
-                    <label for="credits6"
-                           class="visibly-hidden"
-                           >Number of Credits</label>
-                  </td>
-                  <td>
-                    <input disabled id="points6" class="points" />
-                    <label for="points6"
-                           class="visibly-hidden"
-                           >Points Per Credit</label>
-                  </td>
-                  <td>
-                    <input disabled id="quality6" class="quality" />
-                    <label for="quality6"
-                           class="visibly-hidden"
-                           >Quality Points</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <select id="grade7" 
-                            name="grade[]">
-                      <option value="">Choose...</option>
-                      <option value="4.3">A+</option>
-                      <option value="4">A</option>
-                      <option value="3.7">A-</option>
-                      <option value="3.3">B+</option>
-                      <option value="3">B</option>
-                      <option value="2.7">B-</option>
-                      <option value="2.3">C+</option>
-                      <option value="2">C</option>
-                      <option value="1.7">C-</option>
-                      <option value="1.3">D+</option>
-                      <option value="1">D</option>
-                      <option value=".7">D-</option>
-                      <option value="0">F</option>
-                    </select>
-                    <label for="grade7"
-                           class="visibly-hidden"
-                           >Letter Grade</label>
-                  </td>
-                  <td>
-                    <input id="credits7" 
-                           name="credits[]"
-                           step="1"
-                           min="0"
-                           type="number">
-                    <label for="credits7"
-                           class="visibly-hidden"
-                           >Number of Credits</label>
-                  </td>
-                  <td>
-                    <input disabled id="points7" class="points" />
-                    <label for="points7"
-                           class="visibly-hidden"
-                           >Points Per Credit</label>
-                  </td>
-                  <td>
-                    <input disabled id="quality7" class="quality" />
-                    <label for="quality7"
-                           class="visibly-hidden"
-                           >Quality Points</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <select id="grade8" 
-                            name="grade[]">
-                      <option value="">Choose...</option>
-                      <option value="4.3">A+</option>
-                      <option value="4">A</option>
-                      <option value="3.7">A-</option>
-                      <option value="3.3">B+</option>
-                      <option value="3">B</option>
-                      <option value="2.7">B-</option>
-                      <option value="2.3">C+</option>
-                      <option value="2">C</option>
-                      <option value="1.7">C-</option>
-                      <option value="1.3">D+</option>
-                      <option value="1">D</option>
-                      <option value=".7">D-</option>
-                      <option value="0">F</option>
-                    </select>
-                    <label for="grade8"
-                           class="visibly-hidden"
-                           >Letter Grade</label>
-                  </td>
-                  <td>
-                    <input id="credits8" 
-                           name="credits[]"
-                           step="1"
-                           min="0"
-                           type="number">
-                    <label for="credits8"
-                           class="visibly-hidden"
-                           >Number of Credits</label>
-                  </td>
-                  <td>
-                    <input disabled id="points8" class="points" />
-                    <label for="points8"
-                           class="visibly-hidden"
-                           >Points Per Credit</label>
-                  </td>
-                  <td>
-                    <input disabled id="quality8" class="quality" />
-                    <label for="quality8"
-                           class="visibly-hidden"
-                           >Quality Points</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <select id="grade9" 
-                            name="grade[]">
-                      <option value="">Choose...</option>
-                      <option value="4.3">A+</option>
-                      <option value="4">A</option>
-                      <option value="3.7">A-</option>
-                      <option value="3.3">B+</option>
-                      <option value="3">B</option>
-                      <option value="2.7">B-</option>
-                      <option value="2.3">C+</option>
-                      <option value="2">C</option>
-                      <option value="1.7">C-</option>
-                      <option value="1.3">D+</option>
-                      <option value="1">D</option>
-                      <option value=".7">D-</option>
-                      <option value="0">F</option>
-                    </select>
-                    <label for="grade9"
-                           class="visibly-hidden"
-                           >Letter Grade</label>
-                  </td>
-                  <td>
-                    <input id="credits9" 
-                           name="credits[]"
-                           step="1"
-                           min="0"
-                           type="number">
-                    <label for="credits9"
-                           class="visibly-hidden"
-                           >Number of Credits</label>
-                  </td>
-                  <td>
-                    <input disabled id="points9" class="points" />
-                    <label for="points9"
-                           class="visibly-hidden"
-                           >Points Per Credit</label>
-                  </td>
-                  <td>
-                    <input disabled id="quality9" class="quality" />
-                    <label for="quality9"
-                           class="visibly-hidden"
-                           >Quality Points</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <select id="grade10" 
-                            name="grade[]">
-                      <option value="">Choose...</option>
-                      <option value="4.3">A+</option>
-                      <option value="4">A</option>
-                      <option value="3.7">A-</option>
-                      <option value="3.3">B+</option>
-                      <option value="3">B</option>
-                      <option value="2.7">B-</option>
-                      <option value="2.3">C+</option>
-                      <option value="2">C</option>
-                      <option value="1.7">C-</option>
-                      <option value="1.3">D+</option>
-                      <option value="1">D</option>
-                      <option value=".7">D-</option>
-                      <option value="0">F</option>
-                    </select>
-                    <label for="grade10"
-                           class="visibly-hidden"
-                           >Letter Grade</label>
-                  </td>
-                  <td>
-                    <input id="credits10" 
-                           name="credits[]"
-                           step="1"
-                           min="0"
-                           type="number">
-                    <label for="credits10"
-                           class="visibly-hidden"
-                           >Number of Credits</label>
-                  </td>
-                  <td>
-                    <input disabled id="points10" class="points" />
-                    <label for="points10"
-                           class="visibly-hidden"
-                           >Points Per Credit</label>
-                  </td>
-                  <td>
-                    <input disabled id="quality10" class="quality" />
-                    <label for="quality10"
-                           class="visibly-hidden"
-                           >Quality Points</label>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Letter Grade</th>
+            <th scope="col">Number of Credits</th>
+            <th scope="col">Points Per Credit</th>
+            <th scope="col">Quality Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <select id="grade1" name="grade[]">
+                <option value="">Choose...</option>
+                <option value="4.3">A+</option>
+                <option value="4">A</option>
+                <option value="3.7">A-</option>
+                <option value="3.3">B+</option>
+                <option value="3">B</option>
+                <option value="2.7">B-</option>
+                <option value="2.3">C+</option>
+                <option value="2">C</option>
+                <option value="1.7">C-</option>
+                <option value="1.3">D+</option>
+                <option value="1">D</option>
+                <option value=".7">D-</option>
+                <option value="0">F</option>
+              </select>
+              <label for="grade1" class="hidden">Letter Grade</label>
+            </td>
+            <td>
+              <input id="credits1" name="credits[]" type="number" step="1" min="0">
+              <label for="credits1" class="hidden">Number of Credits</label>
+            </td>
+            <td>
+              <input id="points1" class="points" type="number" disabled>
+              <label for="points1" class="hidden">Points Per Credit</label>
+            </td>
+            <td>
+              <input id="quality1" class="quality" type="number" disabled>
+              <label for="quality1" class="hidden">Quality Points</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <select id="grade2" name="grade[]">
+                <option value="">Choose...</option>
+                <option value="4.3">A+</option>
+                <option value="4">A</option>
+                <option value="3.7">A-</option>
+                <option value="3.3">B+</option>
+                <option value="3">B</option>
+                <option value="2.7">B-</option>
+                <option value="2.3">C+</option>
+                <option value="2">C</option>
+                <option value="1.7">C-</option>
+                <option value="1.3">D+</option>
+                <option value="1">D</option>
+                <option value=".7">D-</option>
+                <option value="0">F</option>
+              </select>
+              <label for="grade2" class="hidden">Letter Grade</label>
+            </td>
+            <td>
+              <input id="credits2" name="credits[]" type="number" step="1" min="0">
+              <label for="credits2" class="hidden">Number of Credits</label>
+            </td>
+            <td>
+              <input id="points2" class="points" type="number" disabled>
+              <label for="points2" class="hidden">Points Per Credit</label>
+            </td>
+            <td>
+              <input id="quality2" class="quality" type="number" disabled>
+              <label for="quality2" class="hidden">Quality Points</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <select id="grade3" name="grade[]">
+                <option value="">Choose...</option>
+                <option value="4.3">A+</option>
+                <option value="4">A</option>
+                <option value="3.7">A-</option>
+                <option value="3.3">B+</option>
+                <option value="3">B</option>
+                <option value="2.7">B-</option>
+                <option value="2.3">C+</option>
+                <option value="2">C</option>
+                <option value="1.7">C-</option>
+                <option value="1.3">D+</option>
+                <option value="1">D</option>
+                <option value=".7">D-</option>
+                <option value="0">F</option>
+              </select>
+              <label for="grade3" class="hidden">Letter Grade</label>
+            </td>
+            <td>
+              <input id="credits3" name="credits[]" type="number"step="1" min="0">
+              <label for="credits3" class="hidden">Number of Credits</label>
+            </td>
+            <td>
+              <input id="points3" class="points" type="number" disabled>
+              <label for="points3" class="hidden">Points Per Credit</label>
+            </td>
+            <td>
+              <input id="quality3" class="quality" type="number" disabled>
+              <label for="quality3" class="hidden">Quality Points</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <select id="grade4" name="grade[]">
+                <option value="">Choose...</option>
+                <option value="4.3">A+</option>
+                <option value="4">A</option>
+                <option value="3.7">A-</option>
+                <option value="3.3">B+</option>
+                <option value="3">B</option>
+                <option value="2.7">B-</option>
+                <option value="2.3">C+</option>
+                <option value="2">C</option>
+                <option value="1.7">C-</option>
+                <option value="1.3">D+</option>
+                <option value="1">D</option>
+                <option value=".7">D-</option>
+                <option value="0">F</option>
+              </select>
+              <label for="grade4" class="hidden">Letter Grade</label>
+            </td>
+            <td>
+              <input id="credits4" name="credits[]" type="number" step="1" min="0">
+              <label for="credits4" class="hidden">Number of Credits</label>
+            </td>
+            <td>
+              <input id="points4" class="points" type="number" disabled>
+              <label for="points4" class="hidden">Points Per Credit</label>
+            </td>
+            <td>
+              <input id="quality4" class="quality" type="number" disabled>
+              <label for="quality4" class="hidden">Quality Points</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <select id="grade5" name="grade[]">
+                <option value="">Choose...</option>
+                <option value="4.3">A+</option>
+                <option value="4">A</option>
+                <option value="3.7">A-</option>
+                <option value="3.3">B+</option>
+                <option value="3">B</option>
+                <option value="2.7">B-</option>
+                <option value="2.3">C+</option>
+                <option value="2">C</option>
+                <option value="1.7">C-</option>
+                <option value="1.3">D+</option>
+                <option value="1">D</option>
+                <option value=".7">D-</option>
+                <option value="0">F</option>
+              </select>
+              <label for="grade5" class="hidden">Letter Grade</label>
+            </td>
+            <td>
+              <input id="credits5" name="credits[]" type="number" step="1" min="0">
+              <label for="credits5" class="hidden">Number of Credits</label>
+            </td>
+            <td>
+              <input id="points5" class="points" type="number" disabled>
+              <label for="points5" class="hidden">Points Per Credit</label>
+            </td>
+            <td>
+              <input id="quality5" class="quality" type="number" disabled>
+              <label for="quality5" class="hidden">Quality Points</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <select id="grade6" name="grade[]">
+                <option value="">Choose...</option>
+                <option value="4.3">A+</option>
+                <option value="4">A</option>
+                <option value="3.7">A-</option>
+                <option value="3.3">B+</option>
+                <option value="3">B</option>
+                <option value="2.7">B-</option>
+                <option value="2.3">C+</option>
+                <option value="2">C</option>
+                <option value="1.7">C-</option>
+                <option value="1.3">D+</option>
+                <option value="1">D</option>
+                <option value=".7">D-</option>
+                <option value="0">F</option>
+              </select>
+              <label for="grade1" class="hidden">Letter Grade</label>
+            </td>
+            <td>
+              <input id="credits6" name="credits[]" type="number" step="1" min="0">
+              <label for="credits6" class="hidden">Number of Credits</label>
+            </td>
+            <td>
+              <input id="points6" class="points" type="number" disabled>
+              <label for="points6" class="hidden">Points Per Credit</label>
+            </td>
+            <td>
+              <input id="quality6" class="quality" type="number" disabled>
+              <label for="quality6" class="hidden">Quality Points</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <select id="grade7" name="grade[]">
+                <option value="">Choose...</option>
+                <option value="4.3">A+</option>
+                <option value="4">A</option>
+                <option value="3.7">A-</option>
+                <option value="3.3">B+</option>
+                <option value="3">B</option>
+                <option value="2.7">B-</option>
+                <option value="2.3">C+</option>
+                <option value="2">C</option>
+                <option value="1.7">C-</option>
+                <option value="1.3">D+</option>
+                <option value="1">D</option>
+                <option value=".7">D-</option>
+                <option value="0">F</option>
+              </select>
+              <label for="grade7" class="hidden">Letter Grade</label>
+            </td>
+            <td>
+              <input id="credits7" name="credits[]" type="number" step="1" min="0">
+              <label for="credits7" class="hidden">Number of Credits</label>
+            </td>
+            <td>
+              <input id="points7" class="points" type="number" disabled>
+              <label for="points7" class="hidden">Points Per Credit</label>
+            </td>
+            <td>
+              <input id="quality7" class="quality" type="number" disabled>
+              <label for="quality7" class="hidden">Quality Points</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <select id="grade8" name="grade[]">
+                <option value="">Choose...</option>
+                <option value="4.3">A+</option>
+                <option value="4">A</option>
+                <option value="3.7">A-</option>
+                <option value="3.3">B+</option>
+                <option value="3">B</option>
+                <option value="2.7">B-</option>
+                <option value="2.3">C+</option>
+                <option value="2">C</option>
+                <option value="1.7">C-</option>
+                <option value="1.3">D+</option>
+                <option value="1">D</option>
+                <option value=".7">D-</option>
+                <option value="0">F</option>
+              </select>
+              <label for="grade8" class="hidden">Letter Grade</label>
+            </td>
+            <td>
+              <input id="credits8" name="credits[]" type="number" step="1" min="0">
+              <label for="credits8" class="hidden">Number of Credits</label>
+            </td>
+            <td>
+              <input id="points8" class="points" type="number" disabled>
+              <label for="points8" class="hidden">Points Per Credit</label>
+            </td>
+            <td>
+              <input id="quality8" class="quality" type="number" disabled>
+              <label for="quality8" class="hidden">Quality Points</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <select id="grade9" name="grade[]">
+                <option value="">Choose...</option>
+                <option value="4.3">A+</option>
+                <option value="4">A</option>
+                <option value="3.7">A-</option>
+                <option value="3.3">B+</option>
+                <option value="3">B</option>
+                <option value="2.7">B-</option>
+                <option value="2.3">C+</option>
+                <option value="2">C</option>
+                <option value="1.7">C-</option>
+                <option value="1.3">D+</option>
+                <option value="1">D</option>
+                <option value=".7">D-</option>
+                <option value="0">F</option>
+              </select>
+              <label for="grade9" class="hidden">Letter Grade</label>
+            </td>
+            <td>
+              <input id="credits9" name="credits[]" type="number" step="1" min="0">
+              <label for="credits9" class="hidden">Number of Credits</label>
+            </td>
+            <td>
+              <input id="points9" class="points" type="number" disabled>
+              <label for="points9" class="hidden">Points Per Credit</label>
+            </td>
+            <td>
+              <input id="quality9" class="quality" type="number" disabled>
+              <label for="quality9" class="hidden">Quality Points</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <select id="grade10" name="grade[]">
+                <option value="">Choose...</option>
+                <option value="4.3">A+</option>
+                <option value="4">A</option>
+                <option value="3.7">A-</option>
+                <option value="3.3">B+</option>
+                <option value="3">B</option>
+                <option value="2.7">B-</option>
+                <option value="2.3">C+</option>
+                <option value="2">C</option>
+                <option value="1.7">C-</option>
+                <option value="1.3">D+</option>
+                <option value="1">D</option>
+                <option value=".7">D-</option>
+                <option value="0">F</option>
+              </select>
+              <label for="grade10" class="hidden">Letter Grade</label>
+            </td>
+            <td>
+              <input id="credits10" name="credits[]" type="number" step="1" min="0">
+              <label for="credits10" class="hidden">Number of Credits</label>
+            </td>
+            <td>
+              <input id="points10" class="points" type="number" disabled>
+              <label for="points10" class="hidden">Points Per Credit</label>
+            </td>
+            <td>
+              <input id="quality10" class="quality" type="number" disabled>
+              <label for="quality10" class="hidden">Quality Points</label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-            <!--<input id="add-row" 
-                   value="+ Add Row" 
-                   type="button" />
-            -->
+      <div>
+        <strong>
+          <input id="projected-term-gpa" type="number" disabled>
+          <label for="projected-term-gpa">Projected Term 
+            <abbr title="grade point average">GPA</abbr></label>
+        </strong>
+      </div> 
 
-            <div>
-              <strong>
-                <input disabled id="projected-term-gpa" />
-                <label for="projected-term-gpa">Projected Term <abbr title="grade point average">GPA</abbr></label>
-              </strong>
-            </div> 
+    </fieldset>
+  </div><!-- /#projected.section -->
 
-          </fieldset>
-        </section>
+  <div id="results" class="section">
+    <h2>3. Review Results</h2>
+    <p>Your results will appear below after you have completed previous steps.</p>
+    <fieldset>
+      <legend>Results:</legend>
 
-        <section id="results">
-          <h2>3. Review Results</h2>
-          <p>Your results will appear below after you have completed previous steps.</p>
-          <fieldset>
-            <legend>Results:</legend>
+      <div>
+        <input id="term-credits" type="number" disabled>
+        <label for="term-credits">Term Credits</label>
+      </div>
+      <div>
+        <input  id="term-quality-points" type="number" disabled>
+        <label for="term-quality-points">Term Quality Points</label>
+      </div>
+      <div>
+        <input id="results-cumulative-gpa" type="number" disabled>
+        <label for="results-cumulative-gpa">Cumulative 
+          <abbr title="grade point average">GPA</abbr></label>
+      </div>
+      <div>
+        <input id="results-projected-term-gpa" type="number" disabled>
+        <label for="results-projected-term-gpa">Projected Term 
+          <abbr title="grade point average">GPA</abbr></label>
+      </div>
+      <div>
+        <strong>
+          <input id="projected-cumulative-gpa" type="number" disabled>
+          <label for="projected-cumulative-gpa">Projected Cumulative 
+            <abbr title="grade point average">GPA</abbr></label>
+        </strong>
+      </div>
 
-            <div>
-              <input disabled id="term-credits" />
-              <label for="term-credits">Term Credits</label>
-            </div>
-            <div>
-              <input disabled id="term-quality-points" />
-              <label for="term-quality-points">Term Quality Points</label>
-            </div>
-            <div>
-              <input disabled id="results-cumulative-gpa" />
-              <label for="results-cumulative-gpa">Cumulative <abbr title="grade point average">GPA</abbr></label>
-            </div>
-            <div>
-              <input disabled id="results-projected-term-gpa" />
-              <label for="results-projected-term-gpa">Projected Term <abbr title="grade point average">GPA</abbr></label>
-            </div>
-            <div>
-              <strong>
-                <input disabled id="projected-cumulative-gpa" />
-                <label for="projected-cumulative-gpa">Projected Cumulative <abbr title="grade point average">GPA</abbr></label>
-              </strong>
-            </div>
+    </fieldset>
+  </div><!-- /#results.section --> 
 
-          </fieldset>
-        </section>
+  <div>
+    <label for="reset">Need to start over?</label>
+    <input id="reset" type="reset" value="Reset">
+  </div>
 
-        <div>
-          <label for="reset">Need to start over?</label>
-          <input id="reset" type="reset" value="Reset">
-        </div>
-
-      </form>
+</form><!-- /#gpa-calculator -->
 
 
+<script>
 
-
-  <script>
 document.addEventListener('DOMContentLoaded', initialize);
 
 function initialize() {
   document.addEventListener('input', calculate);
-  document.getElementById('add-row').addEventListener('click', addRow);
-
   calculate();
 }
 
+// run all calculations as data entered
 function calculate() {
   try {
+
     // cumulative gpa
-    const qualityPoints = parseFloat( document.getElementById('quality-points').value );
-    const gpaHours = parseFloat( document.getElementById('gpa-hours').value );
+    const qualityPoints = 
+      parseFloat( document.getElementById('quality-points').value );
+    const gpaHours = 
+      parseFloat( document.getElementById('gpa-hours').value );
+
+    // if quality points and gpa hours are not empty
     if( qualityPoints && gpaHours ) {
+      // cumulative gpa = quality points / gpa hours
       document.getElementById('cumulative-gpa').value = 
         document.getElementById('results-cumulative-gpa').value = 
         ( qualityPoints / gpaHours ).toFixed(2);
     }
 
-    // projected gpa
-    const grades = document.getElementsByName('grade[]');
+    // get columns of projected term table as arrays
+    const grades  = document.getElementsByName('grade[]');
     const credits = document.getElementsByName('credits[]');
-    const points = document.getElementsByClassName('points');
+    const points  = document.getElementsByClassName('points');
     const quality = document.getElementsByClassName('quality');
 
-    let creditTotal = qualityTotal = 0;
-    const numRows = grades.length;
-    for( let i=0; i<numRows; i++ ) {
+    let creditTotal = qualityTotal = 0; // running totals
+
+    // loop through each row of table
+    for( let i = 0; i < grades.length; i++ ) {
+      // if grades not blank
       if( grades[i].value ) {
+        // copy value from grade select to points field
         points[i].value = parseFloat( grades[i].value ).toFixed(2);
 
+        // if credits not blank
         if( credits[i].value ) {
-          quality[i].value = parseFloat( grades[i].value * credits[i].value ).toFixed(2);
+          // quality points = number of credits * points per credit
+          quality[i].value = parseFloat(  credits[i].value * points[i].value ).toFixed(2);
 
+          // add to running totals
           creditTotal += parseFloat( credits[i].value );
           qualityTotal += parseFloat( quality[i].value );
         }
@@ -1057,12 +878,18 @@ function calculate() {
     }
 
     // term credits, term quality points, projected term gpa
+
+    // if total credits not empty
     if( creditTotal ) { 
+      // fill in term credits in results table
       document.getElementById('term-credits').value = parseFloat( creditTotal ).toFixed(2);
+      
+      // if total quality points not empty
       if( qualityTotal) {
+        // fill in quality points in results table
         document.getElementById('term-quality-points').value = parseFloat( qualityTotal ).toFixed(2);
 
-        // projected term gpa
+        // projected term gpa = total quality points / total credits
         document.getElementById('projected-term-gpa').value = 
           document.getElementById('results-projected-term-gpa').value = 
           parseFloat( qualityTotal / creditTotal ).toFixed(2);
@@ -1080,41 +907,7 @@ function calculate() {
   }
 }
 
-/**
- * Adds row to table based on html template in document. Updates id and for
- * attributes to be unique and match as new rows are added. 
- */
-function addRow() {
-  try {
-    // get pointer to row template
-    const template = document.querySelector('#term-row');
-    let clone = document.importNode( template.content, true );
-
-    // find out how many rows already exist and add 1
-    const number = document.querySelectorAll('#projected tbody tr').length + 1;
-
-    // update ids and labels
-    let newId, label;
-    let formObjects = clone.querySelectorAll('[id*="-n"]');
-    formObjects.forEach( function(object) {
-      // pointer to label for object
-      label = clone.querySelector('[for="' + object.id + '"]');
-      // compose new id
-      newId = object.id.replace( /(.*)-n/, '$1' + number );
-
-      // apply new ids
-      label.htmlFor = newId;
-      object.id = newId;
-    });
-
-    // add row
-    document.querySelector('#projected tbody').appendChild( clone );
-  } catch (err) {
-    console.log( "Error: " + err );
-  }
-}
-
-  </script>
+</script>
 
 
 
