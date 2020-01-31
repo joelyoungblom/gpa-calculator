@@ -275,6 +275,7 @@ form th {
   font-weight: initial;
   border-bottom: initial;
   padding-right: initial;
+  vertical-align: bottom;
 }
 
 /* form styles */
@@ -434,6 +435,7 @@ html {
 </style>
 
 
+      <noscript>Please enable Javascript or switch browsers to use the GPA calculator.</noscript>
 
       <form id="gpa-calculator" class="css-reset" >
 
@@ -742,6 +744,59 @@ function addRow() {
   } catch (err) {
     console.log( "Error: " + err );
   }
+}
+
+function addRow() {
+  const num = document.querySelectorAll('#projected tbody tr').length + 1;
+  const template = 
+                    '<td>\n' +
+                      '<select id="grade' + num + '"\n' +
+                              'name="grade[]">\n' +
+                        '<option value="">Choose...</option>\n' +
+                        '<option value="4.3">A+</option>\n' +
+                        '<option value="4">A</option>\n' +
+                        '<option value="3.7">A-</option>\n' +
+                        '<option value="3.3">B+</option>\n' +
+                        '<option value="3">B</option>\n' +
+                        '<option value="2.7">B-</option>\n' +
+                        '<option value="2.3">C+</option>\n' +
+                        '<option value="2">C</option>\n' +
+                        '<option value="1.7">C-</option>\n' +
+                        '<option value="1.3">D+</option>\n' +
+                        '<option value="1">D</option>\n' +
+                        '<option value=".7">D-</option>\n' +
+                        '<option value="0">F</option>\n' +
+                      '</select>\n' +
+                      '<label for="grade' + num + '"\n' +
+                             'class="visibly-hidden"\n' +
+                             '>Letter Grade</label>\n' +
+                    '</td>\n' +
+                    '<td>\n' +
+                      '<input id="credits' + num + '" \n' +
+                             'name="credits[]"\n' +
+                             'step="1"\n' +
+                             'min="0"\n' +
+                             'type="number">\n' +
+                      '<label for="credits' + num + '"\n' +
+                             'class="visibly-hidden"\n' +
+                             '>Number of Credits</label>\n' +
+                    '</td>\n' +
+                    '<td>\n' +
+                      '<input disabled id="points' + num + '" class="points" />\n' +
+                      '<label for="points' + num + '"\n' +
+                             'class="visibly-hidden"\n' +
+                             '>Points Per Credit</label>\n' +
+                    '</td>\n' +
+                    '<td>\n' +
+                      '<input disabled id="quality' + num + '" class="quality" />\n' +
+                      '<label for="quality' + num + '"\n' +
+                             'class="visibly-hidden"\n' +
+                             '>Quality Points</label>\n' +
+                    '</td>';
+  const tr = document.createElement('tr');
+  tr.innerHTML = template;
+  document.querySelector('#projected tbody').appendChild( tr );
+
 }
 
   </script>
