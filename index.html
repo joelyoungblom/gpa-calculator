@@ -219,6 +219,16 @@ var trackOutboundLink = function(url) {
 
 <style>
 
+/* utility classes */
+.hidden {
+  position: absolute;
+  left: -1000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 /* override native styles */
 label {
   display: inline;
@@ -229,34 +239,6 @@ form th {
   border-bottom: none;
   padding-right: initial;
   vertical-align: bottom;
-}
-
-/* responsive */
-#cumulative { grid-area: cumulative; }
-#projected { grid-area: projected; }
-#results { grid-area: results; }
-html {
-  min-width: 360px;
-}
-@media only screen and (max-width: 440px) {
-  /* hide points per credit column on small widths */
-  #gpa-calculator th:nth-of-type(3),
-  #gpa-calculator td:nth-of-type(3) {
-    display: none;
-  }
-}
-@media only screen and (min-width: 900px) {
-  #gpa-calculator {
-    display: grid;
-    grid-gap: 1.5rem;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: 
-      "cumulative results"
-      "projected  results";
-  }
-  #gpa-calculator .section {
-    margin-bottom: 0;
-  }
 }
 
 /* section spacing */
@@ -304,6 +286,7 @@ html {
 #results input {
   text-align: right;
   width: 22%;
+  margin-right: .5rem;
 }
 
 /* over under */
@@ -346,14 +329,32 @@ html {
   margin-bottom: 0;
 }
 
-/* utility classes */
-.hidden {
-  position: absolute;
-  left: -1000px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
+/* responsive */
+#cumulative { grid-area: cumulative; }
+#projected { grid-area: projected; }
+#results { grid-area: results; }
+html {
+  min-width: 360px;
+}
+@media only screen and (max-width: 440px) {
+  /* hide points per credit column on small widths */
+  #gpa-calculator th:nth-of-type(3),
+  #gpa-calculator td:nth-of-type(3) {
+    display: none;
+  }
+}
+@media only screen and (min-width: 900px) {
+  #gpa-calculator {
+    display: grid;
+    grid-gap: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+      "cumulative results"
+      "projected  results";
+  }
+  #gpa-calculator .section {
+    margin-bottom: 0;
+  }
 }
 
 </style>
