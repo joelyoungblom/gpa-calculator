@@ -376,12 +376,12 @@ html {
 
       <div class="flex-container">
       <span class="over-under">
-        <input value="1.5" id="quality-points" type="number" min="0.1" step="0.1">
+        <input id="quality-points" type="number" min="0.1" step="0.1">
         <label for="quality-points">Quality Points</label>
       </span>
       <span class="maths">/</span>
       <span class="over-under">
-        <input value="3.0" id="gpa-hours" type="number" min="0.1" step="0.1">
+        <input id="gpa-hours" type="number" min="0.1" step="0.1">
         <label for="gpa-hours">
           <abbr title="grade point average">GPA</abbr> Hours</label>
       </span>
@@ -418,7 +418,7 @@ html {
             <td>
               <select id="grade1" name="grade[]">
                 <option value="">Choose...</option>
-                <option selected value="4.3">A+</option>
+                <option value="4.3">A+</option>
                 <option value="4">A</option>
                 <option value="3.7">A-</option>
                 <option value="3.3">B+</option>
@@ -435,7 +435,7 @@ html {
               <label for="grade1" class="hidden">Letter Grade</label>
             </td>
             <td>
-              <input value="5" id="credits1" name="credits[]" type="number" step="1" min="0">
+              <input id="credits1" name="credits[]" type="number" step="1" min="0">
               <label for="credits1" class="hidden">Number of Credits</label>
             </td>
             <td>
@@ -456,7 +456,7 @@ html {
                 <option value="3.7">A-</option>
                 <option value="3.3">B+</option>
                 <option value="3">B</option>
-                <option selected value="2.7">B-</option>
+                <option value="2.7">B-</option>
                 <option value="2.3">C+</option>
                 <option value="2">C</option>
                 <option value="1.7">C-</option>
@@ -468,7 +468,7 @@ html {
               <label for="grade2" class="hidden">Letter Grade</label>
             </td>
             <td>
-              <input value="3" id="credits2" name="credits[]" type="number" step="1" min="0">
+              <input id="credits2" name="credits[]" type="number" step="1" min="0">
               <label for="credits2" class="hidden">Number of Credits</label>
             </td>
             <td>
