@@ -345,15 +345,37 @@ html {
 }
 @media only screen and (min-width: 900px) {
   #gpa-calculator {
+    display: -ms-grid;
     display: grid;
-    grid-gap: 1.5rem;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: 
-      "cumulative results"
-      "projected  results";
+
+    -ms-grid-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-areas: "cumulative results"
+                         "projected  results";
   }
-  #gpa-calculator .section {
-    margin-bottom: 0;
+  #cumulative {
+    margin-right: .75rem;
+    margin-bottom: .75rem;
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    grid-area: cumulative;
+  }
+  #projected {
+    margin-right: .75rem;
+    margin-top: .75rem;
+    -ms-grid-row: 2;
+    -ms-grid-column: 1;
+    grid-area: projected;
+  }
+  #results {
+    margin-left: .75rem;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 2;
+    -ms-grid-column: 2; 
+    grid-area: results; 
+  }
+  .clearfix {
+    -ms-grid-row: 3;
   }
 }
 
@@ -790,7 +812,7 @@ html {
     </fieldset>
   </div><!-- /#results.section --> 
 
-  <div>
+  <div class="clearfix">
     <label for="reset">Need to start over?</label>
     <input id="reset" type="reset" value="Reset">
   </div>
