@@ -844,7 +844,7 @@ function calculate() {
       // cumulative gpa = quality points / gpa hours
       document.getElementById('cumulative-gpa').value = 
         document.getElementById('results-cumulative-gpa').value = 
-        ( qualityPoints / gpaHours ).toFixed(2);
+        trunc( ( qualityPoints / gpaHours ), 2);
     }
 
     // get columns of projected term table as arrays
@@ -860,12 +860,12 @@ function calculate() {
       // if grades not blank
       if( grades[i].value ) {
         // copy value from grade select to points field
-        points[i].value = parseFloat( grades[i].value ).toFixed(2);
+        points[i].value = trunc( parseFloat( grades[i].value ), 2);
 
         // if credits not blank
         if( credits[i].value ) {
           // quality points = number of credits * points per credit
-          quality[i].value = parseFloat(  credits[i].value * points[i].value ).toFixed(2);
+          quality[i].value = trunc( parseFloat(  credits[i].value * points[i].value ), 2);
 
           // add to running totals
           creditTotal += parseFloat( credits[i].value );
@@ -879,17 +879,17 @@ function calculate() {
     // if total credits not empty
     if( creditTotal ) { 
       // fill in term credits in results table
-      document.getElementById('term-credits').value = parseFloat( creditTotal ).toFixed(2);
+      document.getElementById('term-credits').value = trunc( parseFloat( creditTotal ), 2);
       
       // if total quality points not empty
       if( qualityTotal) {
         // fill in quality points in results table
-        document.getElementById('term-quality-points').value = parseFloat( qualityTotal ).toFixed(2);
+        document.getElementById('term-quality-points').value = trunc( parseFloat( qualityTotal ), 2);
 
         // projected term gpa = total quality points / total credits
         document.getElementById('projected-term-gpa').value = 
           document.getElementById('results-projected-term-gpa').value = 
-          parseFloat( qualityTotal / creditTotal ).toFixed(2);
+          trunc( parseFloat( qualityTotal / creditTotal ), 2);
       }
     }
 
@@ -897,11 +897,16 @@ function calculate() {
     const totalPoints = qualityPoints + qualityTotal;
     const totalCredits = gpaHours + creditTotal; 
     if( totalPoints && totalCredits ) {
-      document.getElementById('projected-cumulative-gpa').value = ( totalPoints / totalCredits ).toFixed(2);
+      document.getElementById('projected-cumulative-gpa').value = trunc( ( totalPoints / totalCredits ), 2);
     }
   } catch (err) {
     console.log( "Error: " + err );
   }
+}
+
+function trunc(num,places) {
+  const re = new RegExp('^-?\\d+(?:\.\\d{0,' + (places || -1) + '})?');
+  return num.toString().match(re)[0];
 }
 
 </script>
