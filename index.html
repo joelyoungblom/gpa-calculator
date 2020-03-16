@@ -441,7 +441,7 @@ html {
             <td>
               <select id="grade1" name="grade[]">
                 <option value="">Choose...</option>
-                <option value="4.3">A+</option>
+                <option value="4.3" selected>A+</option>
                 <option value="4">A</option>
                 <option value="3.7">A-</option>
                 <option value="3.3">B+</option>
@@ -458,7 +458,7 @@ html {
               <label for="grade1" class="hidden">Letter Grade</label>
             </td>
             <td>
-              <input id="credits1" name="credits[]" type="number" step="1" min="0">
+              <input id="credits1" name="credits[]" type="number" step="1" min="0" value="4">
               <label for="credits1" class="hidden">Number of Credits</label>
             </td>
             <td>
@@ -476,7 +476,7 @@ html {
                 <option value="">Choose...</option>
                 <option value="4.3">A+</option>
                 <option value="4">A</option>
-                <option value="3.7">A-</option>
+                <option value="3.7" selected>A-</option>
                 <option value="3.3">B+</option>
                 <option value="3">B</option>
                 <option value="2.7">B-</option>
@@ -491,7 +491,7 @@ html {
               <label for="grade2" class="hidden">Letter Grade</label>
             </td>
             <td>
-              <input id="credits2" name="credits[]" type="number" step="1" min="0">
+              <input id="credits2" name="credits[]" type="number" step="1" min="0" value="3">
               <label for="credits2" class="hidden">Number of Credits</label>
             </td>
             <td>
@@ -840,16 +840,16 @@ function calculate() {
 
     // cumulative gpa
     const qualityPoints = 
-      parseFloat( document.getElementById('quality-points').value );
+      new Decimal( document.getElementById('quality-points').value );
     const gpaHours = 
-      parseFloat( document.getElementById('gpa-hours').value );
+      new Decimal( document.getElementById('gpa-hours').value );
 
     // if quality points and gpa hours are not empty
     if( qualityPoints && gpaHours ) {
       // cumulative gpa = quality points / gpa hours
       document.getElementById('cumulative-gpa').value = 
         document.getElementById('results-cumulative-gpa').value = 
-        trunc( ( qualityPoints / gpaHours ), 2);
+        trunc( qualityPoints.dividedBy(gpaHours), 2);
     }
 
     // get columns of projected term table as arrays
