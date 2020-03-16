@@ -399,12 +399,12 @@ html {
 
       <div class="flex-container">
       <span class="over-under">
-        <input id="quality-points" type="number" min="0.1" step="0.1" value="13.2">
+        <input id="quality-points" type="number" min="0.1" step="0.1">
         <label for="quality-points">Quality Points</label>
       </span>
       <span class="maths">/</span>
       <span class="over-under">
-        <input id="gpa-hours" type="number" min="0.1" step="0.1" value="10">
+        <input id="gpa-hours" type="number" min="0.1" step="0.1">
         <label for="gpa-hours">
           <abbr title="grade point average">GPA</abbr> Hours</label>
       </span>
@@ -441,7 +441,7 @@ html {
             <td>
               <select id="grade1" name="grade[]">
                 <option value="">Choose...</option>
-                <option value="4.3" selected>A+</option>
+                <option value="4.3">A+</option>
                 <option value="4">A</option>
                 <option value="3.7">A-</option>
                 <option value="3.3">B+</option>
@@ -458,7 +458,7 @@ html {
               <label for="grade1" class="hidden">Letter Grade</label>
             </td>
             <td>
-              <input id="credits1" name="credits[]" type="number" step="1" min="0" value="4">
+              <input id="credits1" name="credits[]" type="number" step="1" min="0">
               <label for="credits1" class="hidden">Number of Credits</label>
             </td>
             <td>
@@ -476,7 +476,7 @@ html {
                 <option value="">Choose...</option>
                 <option value="4.3">A+</option>
                 <option value="4">A</option>
-                <option value="3.7" selected>A-</option>
+                <option value="3.7">A-</option>
                 <option value="3.3">B+</option>
                 <option value="3">B</option>
                 <option value="2.7">B-</option>
@@ -491,7 +491,7 @@ html {
               <label for="grade2" class="hidden">Letter Grade</label>
             </td>
             <td>
-              <input id="credits2" name="credits[]" type="number" step="1" min="0" value="3">
+              <input id="credits2" name="credits[]" type="number" step="1" min="0">
               <label for="credits2" class="hidden">Number of Credits</label>
             </td>
             <td>
@@ -849,7 +849,7 @@ function calculate() {
       // cumulative gpa = quality points / gpa hours
       document.getElementById('cumulative-gpa').value = 
         document.getElementById('results-cumulative-gpa').value = 
-        trunc( qualityPoints.dividedBy(gpaHours), 2);
+        qualityPoints.dividedBy(gpaHours).toFixed(2, Decimal.ROUND_DOWN);
     }
 
     // get columns of projected term table as arrays
@@ -858,23 +858,27 @@ function calculate() {
     const points  = document.getElementsByClassName('points');
     const quality = document.getElementsByClassName('quality');
 
-    let creditTotal = qualityTotal = 0; // running totals
+    let creditTotal = new Decimal(0); // running total
+    let qualityTotal = new Decimal(0); // running total
 
     // loop through each row of table
     for( let i = 0; i < grades.length; i++ ) {
       // if grades not blank
       if( grades[i].value ) {
         // copy value from grade select to points field
-        points[i].value = trunc( parseFloat( grades[i].value ), 2);
+        let p = new Decimal( grades[i].value );
+        points[i].value = p.toFixed(2, Decimal.ROUND_DOWN);
 
         // if credits not blank
         if( credits[i].value ) {
           // quality points = number of credits * points per credit
-          quality[i].value = trunc( parseFloat(  credits[i].value * points[i].value ), 2);
+          let c = new Decimal( credits[i].value );
+          let q =  c.times(p);
+          quality[i].value = q.toFixed(2, Decimal.ROUND_DOWN);
 
           // add to running totals
-          creditTotal += parseFloat( credits[i].value );
-          qualityTotal += parseFloat( quality[i].value );
+          creditTotal = creditTotal.plus(c); 
+          qualityTotal = qualityTotal.plus(q);
         }
       }
     }
@@ -884,25 +888,25 @@ function calculate() {
     // if total credits not empty
     if( creditTotal ) { 
       // fill in term credits in results table
-      document.getElementById('term-credits').value = trunc( parseFloat( creditTotal ), 2);
+      document.getElementById('term-credits').value = creditTotal.toFixed(2, Decimal.ROUND_DOWN);
       
       // if total quality points not empty
       if( qualityTotal) {
         // fill in quality points in results table
-        document.getElementById('term-quality-points').value = trunc( parseFloat( qualityTotal ), 2);
+        document.getElementById('term-quality-points').value = qualityTotal.toFixed(2, Decimal.ROUND_DOWN);
 
         // projected term gpa = total quality points / total credits
         document.getElementById('projected-term-gpa').value = 
           document.getElementById('results-projected-term-gpa').value = 
-          trunc( parseFloat( qualityTotal / creditTotal ), 2);
+          qualityTotal.dividedBy(creditTotal).toFixed(2, Decimal.ROUND_DOWN); 
       }
     }
 
     // projected cumulative gpa
-    const totalPoints = qualityPoints + qualityTotal;
-    const totalCredits = gpaHours + creditTotal; 
+    const totalPoints = qualityPoints.plus(qualityTotal);
+    const totalCredits = gpaHours.plus(creditTotal); 
     if( totalPoints && totalCredits ) {
-      document.getElementById('projected-cumulative-gpa').value = trunc( ( totalPoints / totalCredits ), 2);
+      document.getElementById('projected-cumulative-gpa').value = totalPoints.dividedBy(totalCredits).toFixed(2, Decimal.ROUND_DOWN);
     }
   } catch (err) {
     console.log( "Error: " + err );
